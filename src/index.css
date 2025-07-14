@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.title {
+    @apply text-xl md:text-2xl font-semibold md:font-bold text-primaryColor tracking-wide;
+  }
