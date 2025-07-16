@@ -2,8 +2,8 @@ import { useFormContext } from "react-hook-form";
 import type { FormFieldComponentProps } from "./fields";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../ui/form";
 import { Input } from "../../../ui/input";
-import type { TFormDto } from "../../../../Models/form.model";
 import { Checkbox } from "../../../form-component/checkbox-form-field";
+import type { TFormDto } from "../../../../Models/forms";
 
 
 export default function BaseField({ idx }: FormFieldComponentProps) {

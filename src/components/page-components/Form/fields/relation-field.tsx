@@ -1,12 +1,12 @@
 
 import { useFormContext } from 'react-hook-form';
-import type { TFormDto } from '../../../../Models/form.model';
 import type { FormFieldComponentProps } from './fields';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../ui/form';
 import { Input } from '../../../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../ui/select';
 import { Checkbox } from '../../../form-component/checkbox-form-field';
 import { ERefRelation } from '../../../../Types/global.types';
+import type { TFormDto } from '../../../../Models/forms';
 
 
 export default function RelationField({ idx }: FormFieldComponentProps) {

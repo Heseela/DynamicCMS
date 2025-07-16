@@ -1,86 +1,52 @@
 import { z } from "zod";
-import { ECtaVariant } from "../Types/blocks.types";
-import { EAlignment, EAlignmentExcludeCenter, ELinkType } from "../Types/global.types";
-import { EHeroLayoutTypes } from "../Types/page.types";
-import { mediaSchema } from "./media.model";
+import type { TMeta } from "../Types/global.types";
 
-// ——— CTA ———
-export const CTADtoSchema = z.object({
-    link: z
-        .string()
-        .trim()
-        .min(1, { message: "Link must be between 1 and 100 characters" })
-        .max(100, { message: "Link must be between 1 and 100 characters" }),
-    text: z
-        .string()
-        .trim()
-        .min(3, { message: "Text must be between 3 and 15 characters" })
-        .max(15, { message: "Text must be between 3 and 15 characters" }),
-    variant: z.nativeEnum(ECtaVariant),
-    type: z.nativeEnum(ELinkType),
-    arrow: z.boolean(),
-    newTab: z.boolean(),
-}).superRefine((data, ctx) => {
-    if (data.type === ELinkType.External && !z.string().url().safeParse(data.link).success) {
-        ctx.addIssue({
-            path: ["link"],
-            message: "Invalid URL",
-            code: z.ZodIssueCode.custom,
-        });
-    }
+const CtaSchema = z.object({
+  link: z.string().min(1, "Link is required"),
+  text: z.string().min(1, "Text is required"),
+  variant: z.enum(["primary", "secondary", "outline"]),
+  icon: z.string().optional(),
 });
 
-// ——— Hero Layouts ———
-const BaseHeroLayoutSchema = z.object({
-    type: z.nativeEnum(EHeroLayoutTypes),
+const LayoutTypeSchema = z.enum(["jumbotron", "splitHero"]);
+const AlignmentSchema = z.enum(["left", "center", "right"]);
+
+const LayoutSchema = z.object({
+  type: LayoutTypeSchema,
+  alignment: AlignmentSchema,
 });
 
-export const JumbotronHeroLayoutSchema = BaseHeroLayoutSchema.extend({
-    type: z.literal(EHeroLayoutTypes.Jumbotron),
-    alignment: z.nativeEnum(EAlignment),
+export const HeroSectionSchema = z.object({
+  id: z.string().optional(),
+  headline: z.string().min(1, "Headline is required"),
+  subheadline: z.string().optional(),
+  imageId: z.string().optional(),
+  cta: z.array(CtaSchema).optional(),
+  layout: LayoutSchema,
 });
 
-export const SplitHeroLayoutSchema = BaseHeroLayoutSchema.extend({
-    type: z.literal(EHeroLayoutTypes.Split_Hero),
-    imagePosition: z.nativeEnum(EAlignmentExcludeCenter),
-});
+export type THeroSection = z.infer<typeof HeroSectionSchema>;
+export type TCta = z.infer<typeof CtaSchema>;
+export type TLayout = z.infer<typeof LayoutSchema>;
 
-export const HeroLayoutSchema = z.discriminatedUnion("type", [
-    JumbotronHeroLayoutSchema,
-    SplitHeroLayoutSchema,
-]);
-
-// ——— HeroSectionDto ———
-export const HeroSectionDtoSchema = z.object({
-    headline: z
-        .string()
-        .trim()
-        .min(3, { message: "Headline must be between 3 and 50 characters" })
-        .max(50, { message: "Headline must be between 3 and 50 characters" }),
-
-    subheadline: z
-        .string()
-        .trim()
-        .max(200, { message: "Subheadline must be between 10 and 200 characters" }),
-
-    image: mediaSchema.nullish(),
-
-    cta: z
-        .array(CTADtoSchema)
-        .max(2, { message: "CTA must be less than 2" }),
-
-    layout: HeroLayoutSchema,
-});
-
-export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema>;
-
-export const heroSectionDtoDefaultValues: THeroSectionDto = {
-    headline: "Untitled",
+export const HeroDefaultValues: THeroSection = {
+    headline: "",
     subheadline: "",
-    image: undefined,
+    imageId: "",
     cta: [],
     layout: {
-        type: EHeroLayoutTypes.Jumbotron,
-        alignment: EAlignment.Center
-    }
-}
+      type: "jumbotron",
+      alignment: "left",
+    },
+  };
+
+export type TAsyncHeroSection = {
+  id: string;
+  createdAt: string;
+} & THeroSection;
+
+export type TAsyncHeroSections = {
+  data: TAsyncHeroSection[];
+  meta: TMeta;
+};
+

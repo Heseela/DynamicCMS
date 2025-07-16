@@ -1,4 +1,4 @@
-import type { TFormFieldDef } from "../Models/form.model";
+import type { TFormFieldDef } from "../Models/forms";
 import type { PaginatedResponse } from "./global.types";
 
 

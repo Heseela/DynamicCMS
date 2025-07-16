@@ -11,7 +11,7 @@ export type FormFieldComponentProps = {
     idx: number,
 }
 
-export const fields: Partial<Record<FormFieldType, FC<FormFieldComponentProps>>> = {
+export const fields: { [key in FormFieldType]: FC<FormFieldComponentProps> } = {
     [FormFieldType.Text]: BaseField,
     [FormFieldType.Email]: BaseField,
     [FormFieldType.Number]: BaseField,
@@ -22,4 +22,4 @@ export const fields: Partial<Record<FormFieldType, FC<FormFieldComponentProps>>>
     [FormFieldType.Select]: SelectField,
     [FormFieldType.Radio]: RadioField,
     [FormFieldType.Relation]: RelationField,
-}
+};

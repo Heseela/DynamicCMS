@@ -1,4 +1,4 @@
-import type { THeroSectionDto } from "../Models/hero-section.model";
+import type { THeroSectionDto } from "../Models/hero.model";
 import type { TMetadataDto, TPageSection } from "../Models/page.model";
 import { EAlignment, EAlignmentExcludeCenter, type PaginatedResponse } from "./global.types"
 

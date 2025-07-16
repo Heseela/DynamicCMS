@@ -3,7 +3,7 @@ import jumboRight from "@/assets/layouts/hero-layout/jumbotron-right.svg"
 import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 import splitHeroImgLeft from "@/assets/layouts/hero-layout/split-hero-img-left.svg"
 import splitHeroImgRight from "@/assets/layouts/hero-layout/split-hero-img-right.svg"
-import type { THeroSectionDto } from "../../Models/hero-section.model"
+import type { THeroSectionDto } from "../../Models/hero.model"
 import { EHeroLayoutTypes } from "../../Types/page.types"
 import { EAlignment, EAlignmentExcludeCenter } from "../../Types/global.types"
 

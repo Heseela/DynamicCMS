@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { EBlock, ECardsBlockLayout } from "../Types/blocks.types";
-import { CTADtoSchema, HeroSectionDtoSchema } from "./hero-section.model";
+import { CTADtoSchema, HeroSectionDtoSchema } from "./hero.model";
 import { EAlignment, ELinkType, EOrder, ERefRelation } from "../Types/global.types";
 import { mediaSchema } from "./media.model";
 

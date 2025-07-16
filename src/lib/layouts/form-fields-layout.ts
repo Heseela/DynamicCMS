@@ -1,5 +1,5 @@
 import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
-import { FormFieldDataSourceEntity, FormFieldType, type TBaseFormField, type TFormFieldDef } from "../../Models/form.model"
+import { FormFieldDataSourceEntity, FormFieldType, type TBaseFormField, type TFormFieldDef } from "../../Models/forms"
 
 const baseField: TBaseFormField = {
     name: "",

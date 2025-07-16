@@ -9,7 +9,8 @@ import {
   Building2,
   SlidersHorizontal,
   Landmark,
-  LayoutPanelTop
+  LayoutPanelTop,
+  ClipboardList
 } from "lucide-react";
 
 export const menuItems = [
@@ -48,6 +49,11 @@ export const menuItems = [
     link: "/faqs",
     icon: MessageSquare,
   }, 
+  {
+    title: "Form",
+    link: "/form",
+    icon: ClipboardList,
+  },
   {
     title: "Layout Settings",
     submenu: [

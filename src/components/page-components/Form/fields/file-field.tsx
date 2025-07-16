@@ -1,7 +1,7 @@
 
 import { useFormContext } from 'react-hook-form';
 import type { FormFieldComponentProps } from './fields';
-import type { TFormDto } from '../../../../Models/form.model';
+import type { TFormDto } from '../../../../Models/forms';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../ui/form';
 import { Input } from '../../../ui/input';
 import { Checkbox } from '../../../form-component/checkbox-form-field';
