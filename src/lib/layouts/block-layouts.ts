@@ -45,7 +45,7 @@ export const blockLayouts: {
         {
             block: {
                 type: EBlock.RefItem,
-                ref: ERefRelation.Blogs,
+                ref: ERefRelation.Course,
                 limit: 3,
                 order: EOrder.Desc,
                 selected: undefined

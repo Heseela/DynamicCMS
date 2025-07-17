@@ -1,9 +1,7 @@
-// src/Models/forms/field.schema.ts
+
 import { z } from "zod";
-import { 
-  FormFieldType,
-  FormFieldDataSourceEntity
-} from "./types";
+import { FormFieldDataSourceEntity, FormFieldType } from "../form.model";
+
 
 export const FieldValidationPropSchema = z.object({
   minLength: z.coerce.number().int({ message: "Must be an integer" }).min(0).optional(),
@@ -60,10 +58,10 @@ export const NumberFieldSchema = BaseField.extend({
     defaultValue: z.coerce.number().optional(),
 });
 
-export const CheckboxFieldSchema = BaseField.extend({
-    type: z.literal(FormFieldType.Checkbox),
-    defaultValue: z.boolean().optional(),
-});
+// export const CheckboxFieldSchema = BaseField.extend({
+//     type: z.literal(FormFieldType.Checkbox),
+//     defaultValue: z.boolean().optional(),
+// });
 
 // --- File field (must have accept) ---
 export const FileFieldSchema = BaseField.extend({
@@ -84,13 +82,13 @@ export const SelectFieldSchema = BaseField.extend({
     defaultValue: z.string().optional(),
 });
 
-export const RadioFieldSchema = BaseField.extend({
-    type: z.literal(FormFieldType.Radio),
-    options: z
-        .array(FormFieldOptionSchema)
-        .min(1, { message: "At least one option is required" }),
-    defaultValue: z.string().optional(),
-});
+// export const RadioFieldSchema = BaseField.extend({
+//     type: z.literal(FormFieldType.Radio),
+//     options: z
+//         .array(FormFieldOptionSchema)
+//         .min(1, { message: "At least one option is required" }),
+//     defaultValue: z.string().optional(),
+// });
 
 // --- Relation field (must have dataSource) ---
 export const RelationFieldSchema = BaseField.extend({
@@ -106,8 +104,6 @@ export const FormFieldDefSchema = z.discriminatedUnion("type", [
     TelFieldSchema,
     TextareaFieldSchema,
     NumberFieldSchema,
-    CheckboxFieldSchema,
-    RadioFieldSchema,
     FileFieldSchema,
     SelectFieldSchema,
     RelationFieldSchema,

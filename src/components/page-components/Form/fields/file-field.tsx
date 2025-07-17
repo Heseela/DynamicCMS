@@ -1,71 +1,47 @@
-
 import { useFormContext } from 'react-hook-form';
 import type { FormFieldComponentProps } from './fields';
-import type { TFormDto } from '../../../../Models/forms';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../ui/form';
-import { Input } from '../../../ui/input';
 import { Checkbox } from '../../../form-component/checkbox-form-field';
+import type { TFormDto } from '../../../../Models/forms';
+import InputField from '../../../form-component/input-form';
 
 export default function FileField({ idx }: FormFieldComponentProps) {
     const form = useFormContext<TFormDto>();
 
     return (
-        <section className='@container space-y-6'>
-            <section className='grid @2xl:grid-cols-2 grid-cols-1 gap-6'>
-                <FormField
-                    control={form.control}
-                    name={`fields.${idx}.name`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Name <span className='text-muted-foreground font-normal'>(no whitespace, no special characters)</span> <span className='text-destructive'>*</span></FormLabel>
-                            <FormControl>
-                                <Input
-                                    required
-                                    minLength={3}
-                                    maxLength={50}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+        <section className=' space-y-6'>
+            <section className='grid md:grid-cols-2 grid-cols-1 gap-6'>
+            <InputField
+                    formField={{
+                        name: `fields.${idx}.name`,
+                        label: "Name",
+                        type: "text",
+                        placeholder: "Enter name",
+                        // required: true,
+                    }}
                 />
 
-                <FormField
-                    control={form.control}
-                    name={`fields.${idx}.label`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Label</FormLabel>
-                            <FormControl>
-                                <Input
-                                    maxLength={50}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+                <InputField
+                    formField={{
+                        name: `fields.${idx}.label`,
+                        label: "Label",
+                        type: "text",
+                        placeholder: "Enter label",
+                        // required: true,
+                    }}
                 />
             </section>
 
             <section className='space-y-6'>
-                <FormField
-                    control={form.control}
-                    name={`fields.${idx}.accept`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Accept <span className='text-destructive'>*</span></FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder='Eg. image/png, image/jpeg'
-                                    required
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+        
+                <InputField
+                    formField={{
+                        name: `fields.${idx}.accept`,
+                        label: "Accept",
+                        type: "text",
+                        placeholder: "Eg. image/png, image/jpeg",
+                        // required: true,
+                    }}
                 />
 
                 <FormField

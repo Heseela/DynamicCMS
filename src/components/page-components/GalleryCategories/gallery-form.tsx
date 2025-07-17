@@ -68,7 +68,7 @@ const GalleryCategoryPopupForm = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent aria-describedby={undefined} className="max-w-2xl">
         <DialogHeader>
           <h2 className="text-2xl font-bold">{formTitle}</h2>
         </DialogHeader>

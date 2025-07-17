@@ -2,14 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { FormField, FormItem, FormLabel, FormMessage } from "../../ui/form";
-import { Input } from "../../ui/input";
 import { FormSchema, type TForm } from "../../../Models/form.model";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCustomMutation } from "../../../Global/custom-muation";
 import { QueryKey } from "../../../Types/query.types";
 import { FieldArray } from "./form-field-array";
 import SubmitButton from "../../../Global/Button";
+import InputField from "../../form-component/input-form";
 
 
 type FormFormProps = {
@@ -27,6 +26,7 @@ const FormForm = ({ formValues, slug, formTitle }: FormFormProps) => {
     defaultValues: formValues || {
       title: "",
       fields: [],
+      submitBtnLabel: "Submit"
     },
   });
 
@@ -55,35 +55,38 @@ const FormForm = ({ formValues, slug, formTitle }: FormFormProps) => {
         {formTitle || (slug ? "Edit" : "Create")} Form
       </h2>
       <hr />
-      
+
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 gap-6">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Form Title *</FormLabel>
-                  <Input
-                    {...field}
-                    placeholder="Enter form title"
-                    required
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
+            <InputField
+              formField={{
+                name: "title",
+                label: "Form Title",
+                type: "text",
+                placeholder: "Enter form title",
+                required: true,
+              }}
             />
 
             <FieldArray />
-            
+
+            <InputField
+              formField={{
+                name: "submitBtnLabel",
+                label: "Submit Button Label",
+                type: "text",
+                placeholder: "Eg: Submit",
+                required: true,
+              }}
+            />
           </div>
 
           <div className="flex justify-end gap-4">
             <SubmitButton
-                isLoading={isPending}
-                title={slug ? "Update" : "Save"}
-              />
+              isLoading={isPending}
+              title={slug ? "Update" : "Save"}
+            />
           </div>
         </form>
       </FormProvider>

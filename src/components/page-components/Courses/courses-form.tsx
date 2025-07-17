@@ -218,7 +218,7 @@ const CourseForm = ({ courseValues, slug, formTitle }: CourseFormProps) => {
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-2 gap-6">
-                <InputField
+              <InputField
                   formField={{
                     name: "name",
                     label: "Course Name",

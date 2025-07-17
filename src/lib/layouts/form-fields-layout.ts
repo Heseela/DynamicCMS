@@ -1,5 +1,6 @@
 import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
-import { FormFieldDataSourceEntity, FormFieldType, type TBaseFormField, type TFormFieldDef } from "../../Models/forms"
+import { type TBaseFormField, type TFormFieldDef } from "../../Models/forms"
+import { FormFieldDataSourceEntity, FormFieldType } from "../../Models/form.model"
 
 const baseField: TBaseFormField = {
     name: "",
@@ -101,7 +102,7 @@ export const formFieldsLayout: {
             field: {
                 type: FormFieldType.Relation,
                 dataSource: {
-                    entity: FormFieldDataSourceEntity.Blogs,
+                    entity: FormFieldDataSourceEntity.Course,
                     filter: "",
                     multiple: false
                 },

@@ -1,27 +1,3 @@
-// import { useParams } from "react-router-dom";
-// import { QueryKey } from "../../../Types/query.types";
-// import { useCustomQuery } from "../../../Global/get-query";
-// import type { TFormSubmission } from "../../../Models/form.model";
-// import Loading from "../../../Global/loader";
-// import ErrorMessage from "../../../Global/error-message";
-// import FormForm from "./form-form";
-
-// const EditForm = () => {
-//   const { id } = useParams();
-
-//   const { data: formSubmission, isLoading, error } = useCustomQuery<TFormSubmission>({
-//     endPoint: `${QueryKey.FORMS}/${id}`,
-//     queryKey: [QueryKey.FORMS, id],
-//   });
-  
-//   if (isLoading) return <Loading />;
-//   if (error) return <ErrorMessage />;
-
-//   return <FormForm formValues={formSubmission} id={id} formTitle="Edit Form Submission" />;
-// };
-
-// export default EditForm;
-
 import { useParams } from "react-router-dom";
 import { useCustomQuery } from "../../../Global/get-query";
 import { QueryKey } from "../../../Types/query.types";
@@ -41,7 +17,7 @@ const EditForm = () => {
   if (isLoading) return <Loading />;
   if (error) return <ErrorMessage />;
 
-  return <FormForm slug={slug} formTitle="Edit Form" />;
+  return <FormForm formValues={form} slug={slug} formTitle="Edit Form" />;
 };
 
 export default EditForm;

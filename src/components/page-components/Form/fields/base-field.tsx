@@ -1,86 +1,57 @@
 import { useFormContext } from "react-hook-form";
 import type { FormFieldComponentProps } from "./fields";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../ui/form";
-import { Input } from "../../../ui/input";
-import { Checkbox } from "../../../form-component/checkbox-form-field";
 import type { TFormDto } from "../../../../Models/forms";
+import InputField from "../../../form-component/input-form";
+import { Checkbox } from "../../../form-component/checkbox-form-field";
+import { FormFieldType } from "../../../../Models/form.model";
 
 
 export default function BaseField({ idx }: FormFieldComponentProps) {
     const form = useFormContext<TFormDto>();
 
     return (
-        <section className='@container space-y-6'>
-            <section className='grid @2xl:grid-cols-2 grid-cols-1 gap-6'>
-                <FormField
-                    control={form.control}
-                    name={`fields.${idx}.name`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Name <span className='text-muted-foreground font-normal'>(no whitespace, no special characters)</span> <span className='text-destructive'>*</span></FormLabel>
-                            <FormControl>
-                                <Input
-                                    required
-                                    minLength={3}
-                                    maxLength={50}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+        <section className=' space-y-6'>
+            <section className='grid md:grid-cols-2 grid-cols-1 gap-6'>
+
+                <InputField
+                    formField={{
+                        name: `fields.${idx}.name`,
+                        label: "Name",
+                        type: "text",
+                        placeholder: "Enter name",
+                        // required: true,
+                    }}
                 />
 
-                <FormField
-                    control={form.control}
-                    name={`fields.${idx}.label`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Label</FormLabel>
-                            <FormControl>
-                                <Input
-                                    maxLength={50}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+                <InputField
+                    formField={{
+                        name: `fields.${idx}.label`,
+                        label: "Label",
+                        type: "text",
+                        placeholder: "Enter label",
+                        // required: true,
+                    }}
                 />
 
-                <FormField
-                    control={form.control}
-                    name={`fields.${idx}.placeholder`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Placeholder</FormLabel>
-                            <FormControl>
-                                <Input
-                                    maxLength={50}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+                <InputField
+                    formField={{
+                        name: `fields.${idx}.placeholder`,
+                        label: "Placeholder",
+                        type: "text",
+                        placeholder: "Enter placeholder",
+                        // required: true,
+                    }}
                 />
 
-                <FormField
-                    control={form.control}
-                    name={`fields.${idx}.defaultValue`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Default Value</FormLabel>
-                            <FormControl>
-                                <Input
-                                    maxLength={50}
-                                    {...field}
-                                    value={(field.value || "") as string | number | undefined}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+                <InputField
+                    formField={{
+                        name: `fields.${idx}.defaultValue`,
+                        label: "Default Value",
+                        type: form.watch(`fields.${idx}.type`) === FormFieldType.Number ? "number" : "text",
+                        placeholder: "Enter default value",
+                        required: false,
+                    }}
                 />
 
             </section>
@@ -91,60 +62,37 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                     name={`fields.${idx}.validation`}
                     render={() => {
                         return (
-                            <FormItem className='@container'>
+                            <FormItem className=''>
                                 <FormControl>
-                                    <section className='grid @4xl:grid-cols-3 @2xl:grid-cols-2 grid-cols-1 gap-6'>
-                                        <FormField
-                                            control={form.control}
-                                            name={`fields.${idx}.validation.minLength`}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Min Length</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            type='number'
-                                                            pattern='^[0-9]*$'
-                                                            min={0}
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+                                    <section className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
+
+                                        <InputField
+                                            formField={{
+                                                type: "number",
+                                                name: `fields.${idx}.validation.minLength`,
+                                                label: "Min Length",
+                                                // required: true
+                                            }}
+                                            valueAsNumber={true}
                                         />
-                                        <FormField
-                                            control={form.control}
-                                            name={`fields.${idx}.validation.maxLength`}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Max Length</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            type='number'
-                                                            pattern='^[0-9]*$'
-                                                            min={0}
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+
+                                        <InputField
+                                            formField={{
+                                                type: "number",
+                                                name: `fields.${idx}.validation.maxLength`,
+                                                label: "Max Length",
+                                                // required: true
+                                            }}
+                                            valueAsNumber={true}
                                         />
-                                        <FormField
-                                            control={form.control}
-                                            name={`fields.${idx}.validation.minLength`}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Pattern <span className='text-muted-foreground font-normal'>(a valid regular expression)</span></FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            type='string'
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+
+                                        <InputField
+                                            formField={{
+                                                type: "text",
+                                                name: `fields.${idx}.validation.minLength`,
+                                                label: "Pattern",
+                                                // required: true
+                                            }}
                                         />
                                     </section>
                                 </FormControl>

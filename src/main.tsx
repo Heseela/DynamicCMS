@@ -31,6 +31,7 @@ import HeaderForm from './components/page-components/Header/header-form';
 import FooterForm from './components/page-components/Footer/footer-form';
 import FormForm from './components/page-components/Form/form-form';
 import FormList from './components/page-components/Form/form-list';
+import EditForm from './components/page-components/Form/edit-form';
 // import LoginLayout from './Layout/login-layout';
 // import LoginPage from './side-pages/login-page';
 
@@ -70,7 +71,7 @@ createRoot(document.getElementById('root')!).render(
 
             <Route path="form" element={<FormList />} />
             <Route path="form/add" element={<FormForm />} />
-
+            <Route path="form/:slug/edit" element={<EditForm />} />
 
             <Route path="general-setting" element={<SettingView />} />
 

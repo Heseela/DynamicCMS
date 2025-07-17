@@ -231,8 +231,8 @@ export enum ELinkType {
 }
 
 export enum ERefRelation {
-    Pages = "pages",
-    Blogs = "blogs",
+   Course="course",
+   Job="job"
 }
 
 export enum EOrder {
