@@ -158,15 +158,15 @@ export type TFormList = {
   meta: TMeta;
 };
 
-export type TFormSubmission = {
-  id?: string;
-  formSlug: string;
-  data: Record<string, any>;
-  createdAt?: string;
-  updatedAt?: string;
-};
+// export type TFormSubmission = {
+//   id?: string;
+//   formSlug: string;
+//   data: Record<string, any>;
+//   createdAt?: string;
+//   updatedAt?: string;
+// };
 
-export type TFormSubmissionList = {
-  data: TFormSubmission[];
-  meta: TMeta;
-};
+// export type TFormSubmissionList = {
+//   data: TFormSubmission[];
+//   meta: TMeta;
+// };

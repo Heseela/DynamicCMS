@@ -11,7 +11,7 @@ export default function FileField({ idx }: FormFieldComponentProps) {
     return (
         <section className=' space-y-6'>
             <section className='grid md:grid-cols-2 grid-cols-1 gap-6'>
-            <InputField
+                <InputField
                     formField={{
                         name: `fields.${idx}.name`,
                         label: "Name",
@@ -33,7 +33,7 @@ export default function FileField({ idx }: FormFieldComponentProps) {
             </section>
 
             <section className='space-y-6'>
-        
+
                 <InputField
                     formField={{
                         name: `fields.${idx}.accept`,
@@ -49,17 +49,19 @@ export default function FileField({ idx }: FormFieldComponentProps) {
                     name={`fields.${idx}.required`}
                     render={({ field }) => {
                         return (
-                            <FormItem className="flex flex-row items-center gap-2">
-                                <FormControl>
-                                    <Checkbox
-                                        checked={field.value}
-                                        onCheckedChange={(checked) => field.onChange(checked)}
-                                    />
-                                </FormControl>
-                                <FormLabel className="text-sm font-normal">
-                                    Required
-                                </FormLabel>
-                                <FormMessage />
+                            <FormItem>
+                                <div className="flex flex-row items-center gap-2">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={(checked) => field.onChange(checked)}
+                                        />
+                                    </FormControl>
+                                    <FormLabel className="text-sm font-normal">
+                                        Required
+                                    </FormLabel>
+                                    <FormMessage />
+                                </div>
                             </FormItem>
                         )
                     }}

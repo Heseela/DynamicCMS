@@ -5,32 +5,16 @@ import { FooterDefaultValues, type TFooterForm } from "../../../Models/footer.mo
 import { QueryKey } from "../../../Types/query.types";
 import FooterForm from "./footer-form";
 
-type TFooterAPI = {
-  navLinks: Array<{
-    name: string;
-    url: string;
-    type: "internal" | "external";
-  }>;
-  footerDescription: string;
-};
-
 const EditFooter = () => {
-  const { data: footerData, isLoading, error } = useCustomQuery<TFooterAPI>({
+  const { data: footerData, isLoading, error } = useCustomQuery<TFooterForm>({
     endPoint: QueryKey.FOOTER,
     queryKey: [QueryKey.FOOTER],
   });
 
   if (isLoading) return <Loading />;
-  if (error) return <ErrorMessage />;
+  if (error) return <ErrorMessage error={error} />;
 
-  const footerValues: TFooterForm = footerData ? {
-    footerDescription: footerData.footerDescription,
-    navLinks: footerData.navLinks.map(link => ({
-      name: link.name,
-      url: link.url,
-      type: link.type
-    }))
-  } : FooterDefaultValues;
+  const footerValues: TFooterForm = footerData || FooterDefaultValues;
 
   return <FooterForm footerValues={footerValues} />;
 };

@@ -66,7 +66,8 @@ export default function SelectField({ idx }: FormFieldComponentProps) {
                         name={`fields.${idx}.multiple`}
                         render={({ field }) => {
                             return (
-                                <FormItem className="flex flex-row items-center gap-2">
+                                <FormItem>
+                                     <div className="flex flex-row items-center gap-2">
                                     <FormControl>
                                         <Checkbox
                                             checked={field.value}
@@ -77,6 +78,7 @@ export default function SelectField({ idx }: FormFieldComponentProps) {
                                         Multiple
                                     </FormLabel>
                                     <FormMessage />
+                                    </div>
                                 </FormItem>
                             )
                         }}
@@ -86,7 +88,8 @@ export default function SelectField({ idx }: FormFieldComponentProps) {
                         name={`fields.${idx}.required`}
                         render={({ field }) => {
                             return (
-                                <FormItem className="flex flex-row items-center gap-2">
+                                <FormItem>
+                                     <div className="flex flex-row items-center gap-2">
                                     <FormControl>
                                         <Checkbox
                                             checked={field.value}
@@ -97,6 +100,7 @@ export default function SelectField({ idx }: FormFieldComponentProps) {
                                         Required
                                     </FormLabel>
                                     <FormMessage />
+                                    </div>
                                 </FormItem>
                             )
                         }}

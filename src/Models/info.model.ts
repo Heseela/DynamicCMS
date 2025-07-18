@@ -26,12 +26,6 @@ export const CompanyInfoSchema = z.object({
   socialProfiles: z.array(SocialProfileSchema),
 });
 
-export type TCompanyInfoForm = z.infer<typeof CompanyInfoSchema> & {
-  socialProfiles: Array<{ id?: string; url: string }>;
-  phones: Array<{ id?: string; number: string }>;
-  emails: Array<{ id?: string; address: string }>;
-};
-
 export type TCompanyInfoAPI = {
   city: string;
   address: string;
@@ -42,6 +36,16 @@ export type TCompanyInfoAPI = {
   socialProfiles: string[];
 };
 
+export type TCompanyInfoForm = {
+  city: string;
+  address: string;
+  phones: Array<{ id?: string; number: string }>;
+  mapLink?: string;
+  emails: Array<{ id?: string; address: string }>;
+  workingHours: string;
+  socialProfiles: Array<{ id?: string; url: string }>;
+};
+
 export const CompanyInfoDefaultValues: TCompanyInfoForm = {
   city: "",
   address: "",
@@ -49,5 +53,5 @@ export const CompanyInfoDefaultValues: TCompanyInfoForm = {
   mapLink: "",
   emails: [{ address: "" }],
   workingHours: "",
-  socialProfiles: [],
-};
+  socialProfiles: [{ url: "" }],
+}

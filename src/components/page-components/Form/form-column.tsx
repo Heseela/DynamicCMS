@@ -10,18 +10,13 @@ import type { TForm } from "../../../Models/forms";
 export const FormColumns: ColumnDef<TForm>[] = [
   {
     header: "S.N",
-    cell: ({ row }) => <p className="text-sm">{row.index + 1}</p>,
+    cell: ({ row }) => <p className="text-14 font-medium">{row.index + 1}</p>,
   },
   {
-    header: "Slug",
-    accessorKey: "slug",
+    header: "Name",
+    accessorKey: "name",
     cell: ({ row }) => (
-        <Link 
-          to={`/form/${row.original.slug}`}
-          className="text-14 font-semibold hover:underline"
-        >
-          {row.original.slug}
-        </Link>
+      <p className="text-14 font-medium">{row.original.slug}</p>
     ),
   },
   {
@@ -32,7 +27,7 @@ export const FormColumns: ColumnDef<TForm>[] = [
       return (
          <div className="flex gap-1">
            <div className="text-14 font-semibold">
-            {fields.length} fields: 
+            {fields.length} Field: 
           </div>{fieldSummary}
          </div>
       );

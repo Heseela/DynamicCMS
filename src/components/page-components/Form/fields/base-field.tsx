@@ -107,7 +107,8 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                     name={`fields.${idx}.required`}
                     render={({ field }) => {
                         return (
-                            <FormItem className="flex flex-row items-center gap-2">
+                            <FormItem>
+                                 <div className="flex flex-row items-center gap-2">
                                 <FormControl>
                                     <Checkbox
                                         checked={field.value}
@@ -118,6 +119,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                                     Required
                                 </FormLabel>
                                 <FormMessage />
+                                </div>
                             </FormItem>
                         )
                     }}

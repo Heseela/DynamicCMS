@@ -52,10 +52,8 @@ const BlogForm = ({ blogValues, slug, formTitle }: BlogFormProps) => {
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">{formTitle || (slug ? "Edit" : "Add")} Blog</h2>
       <hr />
-      <div className="flex gap-5 justify-center">
-        <section className="flex-1 border shadow-sm rounded-lg px-10 py-6 bg-white">
           <FormProvider {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 border shadow-sm rounded-lg px-6 py-4 bg-white space-y-8">
               <InputField
                 formField={{
                   label: "Title",
@@ -95,7 +93,7 @@ const BlogForm = ({ blogValues, slug, formTitle }: BlogFormProps) => {
                 formField={{
                   name: "coverImageId",
                   label: "Cover Image",
-                  type: "image", 
+                  type: "image",
                   accept: "image/*",
                   required: true,
                 }}
@@ -106,13 +104,13 @@ const BlogForm = ({ blogValues, slug, formTitle }: BlogFormProps) => {
                 formField={{
                   name: "featuredImageId",
                   label: "Featured Image",
-                  type: "image", 
+                  type: "image",
                   accept: "image/*",
-                  required: true, 
+                  required: true,
                 }}
                 imageURLs={blogValues?.featuredImage?.url}
               />
-              <section className="w-full max-w-6xl overflow-x-hidden">
+              {/* <section className="w-full max-w-6xl overflow-x-hidden">
 
                 <TextAreaField
                   formField={{
@@ -122,7 +120,20 @@ const BlogForm = ({ blogValues, slug, formTitle }: BlogFormProps) => {
                     placeholder: "Enter blog content here...",
                     required: true,
                   }}
-                /></section>
+                /></section> */}
+
+              <div className="w-full max-w-6xl overflow-x-hidden">
+                <TextAreaField
+                  formField={{
+                    label: "Content",
+                    name: "content",
+                    type: "textarea",
+                    placeholder: "Enter blog content here...",
+                    required: true,
+                  }}
+                  richText={true}
+                /></div>
+
 
               <SubmitButton
                 isLoading={isPending}
@@ -130,9 +141,7 @@ const BlogForm = ({ blogValues, slug, formTitle }: BlogFormProps) => {
               />
             </form>
           </FormProvider>
-        </section>
       </div>
-    </div>
   );
 };
 

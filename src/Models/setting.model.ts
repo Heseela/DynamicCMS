@@ -4,7 +4,6 @@ export const GeneralSettingSchema = z.object({
   companyName: z.string().min(1, 'Required'),
   primaryLogoId: z.string().uuid(),
   secondaryLogoId: z.string().uuid().optional(),
-  footerDescription: z.string().optional(),
   privacyPolicy: z.string().trim().min(1, 'Required'),
   termsAndConditions: z.string().trim().min(1, 'Required'),
   navLinks: z.array(z.any()).optional(),
@@ -29,9 +28,11 @@ export type TGeneralSettingResponse = {
 };
 
 export type TPrivacyPolicyResponse = {
-  data: string;
+  privacyPolicy?: string;
+  data?: string;
 };
 
 export type TTermsAndConditionsResponse = {
-  data: string;
+  termsAndConditions?: string;
+  data?: string;
 };

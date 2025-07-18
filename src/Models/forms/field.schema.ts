@@ -2,7 +2,6 @@
 import { z } from "zod";
 import { FormFieldDataSourceEntity, FormFieldType } from "../form.model";
 
-
 export const FieldValidationPropSchema = z.object({
   minLength: z.coerce.number().int({ message: "Must be an integer" }).min(0).optional(),
   maxLength: z.coerce.number().int({ message: "Must be an integer" }).min(0).optional(),

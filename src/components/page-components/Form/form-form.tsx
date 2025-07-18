@@ -57,7 +57,7 @@ const FormForm = ({ formValues, slug, formTitle }: FormFormProps) => {
       <hr />
 
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="border bg-white rounded-lg p-4">
           <div className="grid grid-cols-1 gap-6">
             <InputField
               formField={{

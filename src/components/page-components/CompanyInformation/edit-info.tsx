@@ -1,7 +1,7 @@
 import ErrorMessage from "../../../Global/error-message";
 import { useCustomQuery } from "../../../Global/get-query";
 import Loading from "../../../Global/loader";
-import { CompanyInfoDefaultValues, type TCompanyInfoForm } from "../../../Models/info.model";
+import { type TCompanyInfoForm } from "../../../Models/info.model";
 import { QueryKey } from "../../../Types/query.types";
 import CompanyForm from "./info-form";
 
@@ -22,17 +22,17 @@ const EditCompanyInfo = () => {
   });
 
   if (isLoading) return <Loading />;
-  if (error) return <ErrorMessage />;
+  if (error) return <ErrorMessage error={error} />;
 
-  const companyValues: TCompanyInfoForm = companyInfo ? {
-    city: companyInfo.city,
-    address: companyInfo.address,
-    phones: companyInfo.phone.map(number => ({ number })),
-    mapLink: companyInfo.mapLink || "",
-    emails: companyInfo.email.map(address => ({ address })),
-    workingHours: companyInfo.workingHours,
-    socialProfiles: companyInfo.socialProfiles.map(url => ({ url }))
-  } : CompanyInfoDefaultValues;
+  const companyValues: TCompanyInfoForm = {
+    city: companyInfo?.city || "",
+    address: companyInfo?.address || "",
+    phones: companyInfo?.phone?.map(number => ({ number })) || [{ number: "" }],
+    mapLink: companyInfo?.mapLink || "",
+    emails: companyInfo?.email?.map(address => ({ address })) || [{ address: "" }],
+    workingHours: companyInfo?.workingHours || "",
+    socialProfiles: companyInfo?.socialProfiles?.map(url => ({ url })) || [{ url: "" }]
+  };
 
   return <CompanyForm companyValues={companyValues} />;
 };

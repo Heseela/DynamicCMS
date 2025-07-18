@@ -25,13 +25,13 @@ import EditJob from './components/page-components/Jobs/edit-job';
 import SettingView from './components/page-components/GeneralSetting/setting-view';
 import GalleryCategoryList from './components/page-components/GalleryCategories/gallery-list';
 import EditGalleryCategory from './components/page-components/GalleryCategories/edit-gallery';
-import CompanyForm from './components/page-components/CompanyInformation/info-form';
 import GalleryCategoryDetails from './components/page-components/GalleryCategories/gallery-category-details';
-import HeaderForm from './components/page-components/Header/header-form';
-import FooterForm from './components/page-components/Footer/footer-form';
 import FormForm from './components/page-components/Form/form-form';
 import FormList from './components/page-components/Form/form-list';
 import EditForm from './components/page-components/Form/edit-form';
+import InfoView from './components/page-components/CompanyInformation/info-view';
+import HeaderView from './components/page-components/Header/header-view';
+import FooterView from './components/page-components/Footer/footer-view';
 // import LoginLayout from './Layout/login-layout';
 // import LoginPage from './side-pages/login-page';
 
@@ -75,7 +75,7 @@ createRoot(document.getElementById('root')!).render(
 
             <Route path="general-setting" element={<SettingView />} />
 
-            <Route path="company-info" element={<CompanyForm />} />
+            <Route path="company-info" element={<InfoView />} />
 
             <Route path="jobs" element={<JobList />} />
             <Route path="jobs/add" element={<JobForm />} />
@@ -85,8 +85,8 @@ createRoot(document.getElementById('root')!).render(
             <Route path="gallery/:id" element={<GalleryCategoryDetails/>} />
             <Route path="gallery/:id/edit" element={<EditGalleryCategory/>} />
 
-            <Route path="header" element={<HeaderForm />} />
-            <Route path="footer" element={<FooterForm />} />
+            <Route path="header" element={<HeaderView />} />
+            <Route path="footer" element={<FooterView />} />
 
           </Route>
         </Routes>

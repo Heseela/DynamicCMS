@@ -281,15 +281,9 @@ type CompanyFormProps = {
 const CompanyForm = ({ companyValues }: CompanyFormProps) => {
   const queryClient = useQueryClient();
 
-  // Set default values with one empty social profile
-  const defaultValuesWithSocialProfile = {
-    ...CompanyInfoDefaultValues,
-    socialProfiles: [{ url: "" }]
-  };
-
   const form = useForm<TCompanyInfoForm>({
     resolver: zodResolver(CompanyInfoSchema),
-    defaultValues: companyValues || defaultValuesWithSocialProfile,
+    defaultValues: companyValues || CompanyInfoDefaultValues,
   });
 
   const { fields: socialFields, append: appendSocial, remove: removeSocial } = useFieldArray({
