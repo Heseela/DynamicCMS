@@ -1,55 +1,50 @@
-import jumboLeft from "@/assets/layouts/hero-layout/jumbotron-left.svg"
-import jumboRight from "@/assets/layouts/hero-layout/jumbotron-right.svg"
-import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
-import splitHeroImgLeft from "@/assets/layouts/hero-layout/split-hero-img-left.svg"
-import splitHeroImgRight from "@/assets/layouts/hero-layout/split-hero-img-right.svg"
 import type { THeroSectionDto } from "../../Models/hero.model"
 import { EHeroLayoutTypes } from "../../Types/page.types"
 import { EAlignment, EAlignmentExcludeCenter } from "../../Types/global.types"
 
 export const heroLayouts: {
     layout: THeroSectionDto["layout"],
-    image: string,
-    alt: string
+    alt: string,
+    description: string
 }[] = [
-        {
-            layout: {
-                type: EHeroLayoutTypes.Jumbotron,
-                alignment: EAlignment.Left,
-            },
-            image: jumboLeft,
-            alt: "Jumbotron Left"
+    {
+        layout: {
+            type: EHeroLayoutTypes.Jumbotron,
+            alignment: EAlignment.Left,
         },
-        {
-            layout: {
-                type: EHeroLayoutTypes.Jumbotron,
-                alignment: EAlignment.Center,
-            },
-            image: jumboCenter,
-            alt: "Jumbotron Center"
+        alt: "Jumbotron Left",
+        description: "Text on right, image on left"
+    },
+    {
+        layout: {
+            type: EHeroLayoutTypes.Jumbotron,
+            alignment: EAlignment.Center,
         },
-        {
-            layout: {
-                type: EHeroLayoutTypes.Jumbotron,
-                alignment: EAlignment.Right,
-            },
-            image: jumboRight,
-            alt: "Jumbotron Right"
+        alt: "Jumbotron Center",
+        description: "Centered content with image"
+    },
+    {
+        layout: {
+            type: EHeroLayoutTypes.Jumbotron,
+            alignment: EAlignment.Right,
         },
-        {
-            layout: {
-                type: EHeroLayoutTypes.Split_Hero,
-                imagePosition: EAlignmentExcludeCenter.Left,
-            },
-            image: splitHeroImgLeft,
-            alt: "Split Hero Left"
+        alt: "Jumbotron Right",
+        description: "Text on left, image on right"
+    },
+    {
+        layout: {
+            type: EHeroLayoutTypes.Split_Hero,
+            imagePosition: EAlignmentExcludeCenter.Left,
         },
-        {
-            layout: {
-                type: EHeroLayoutTypes.Split_Hero,
-                imagePosition: EAlignmentExcludeCenter.Right,
-            },
-            image: splitHeroImgRight,
-            alt: "Split Hero Right"
+        alt: "Split Hero Left",
+        description: "50/50 split with image on left"
+    },
+    {
+        layout: {
+            type: EHeroLayoutTypes.Split_Hero,
+            imagePosition: EAlignmentExcludeCenter.Right,
         },
-    ]
+        alt: "Split Hero Right",
+        description: "50/50 split with image on right"
+    },
+]

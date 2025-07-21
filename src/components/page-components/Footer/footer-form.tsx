@@ -130,7 +130,6 @@ const FooterForm = ({ footerValues, footerId }: FooterFormProps) => {
                                                 <div className="flex flex-col gap-2 mt-2">
                                                     <Button
                                                         type="button"
-                                                        variant="destructive"
                                                         size="icon"
                                                         className="border"
                                                         onClick={() => removeNavLink(index)}
@@ -226,7 +225,6 @@ const SubLinksFieldArray = ({ nestIndex, control }: { nestIndex: number; control
                             <div className="flex flex-col gap-2 mt-2">
                                 <Button
                                     type="button"
-                                    variant="destructive"
                                     size="icon"
                                     className="border"
                                     onClick={() => remove(subIndex)}

@@ -20,6 +20,7 @@ export const CTADtoSchema = z.object({
     type: z.nativeEnum(ELinkType),
     arrow: z.boolean(),
     newTab: z.boolean(),
+    icon: z.string().optional(),
 }).superRefine((data, ctx) => {
     if (data.type === ELinkType.External && !z.string().url().safeParse(data.link).success) {
         ctx.addIssue({
@@ -50,6 +51,7 @@ export const HeroLayoutSchema = z.discriminatedUnion("type", [
 ]);
 
 export const HeroSectionDtoSchema = z.object({
+    id: z.string().uuid().optional(),
     headline: z
         .string()
         .trim()

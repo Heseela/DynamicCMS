@@ -1,5 +1,5 @@
 
-import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
+// import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 import { EBlock, ECardsBlockLayout } from "../../Types/blocks.types"
 import { EAlignment, EOrder, ERefRelation } from "../../Types/global.types"
 import type { TBlock } from "../../Models/page.model"
@@ -7,7 +7,7 @@ import type { TBlock } from "../../Models/page.model"
 
 export const blockLayouts: {
     block: TBlock,
-    image: string,
+    // image: string,
     alt: string
 }[] = [
         {
@@ -20,7 +20,7 @@ export const blockLayouts: {
                 align: EAlignment.Left,
             },
             alt: "Text",
-            image: jumboCenter
+            // image: jumboCenter
         },
         {
             block: {
@@ -28,7 +28,7 @@ export const blockLayouts: {
                 images: []
             },
             alt: "Images",
-            image: jumboCenter
+            // image: jumboCenter
         },
         {
             block: {
@@ -40,7 +40,7 @@ export const blockLayouts: {
                 newTab: false
             },
             alt: "Cards",
-            image: jumboCenter,
+            // image: jumboCenter,
         },
         {
             block: {
@@ -51,7 +51,7 @@ export const blockLayouts: {
                 selected: undefined
             },
             alt: "RefItem",
-            image: jumboCenter
+            // image: jumboCenter
         },
         {
             block: {
@@ -62,6 +62,6 @@ export const blockLayouts: {
                 }
             },
             alt: "Form",
-            image: jumboCenter
+            // image: jumboCenter
         }
     ]

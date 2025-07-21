@@ -13,6 +13,7 @@ export const BaseBlockSchema = z.object({
 export const TextBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Text),
     headline: z
+
         .string()
         .trim()
         .min(3, { message: "Headline must be between 3 and 50 characters" })
