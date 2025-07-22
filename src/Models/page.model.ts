@@ -136,6 +136,22 @@ export const PageSectionSchema = z
     })
     .strict();
 
+// export const PageSectionSchema = z
+//     .object({
+//         headline: z
+//             .string()
+//             .trim()
+//             .max(50, { message: "Headline must be between 3 and 50 characters" }),
+//         subheadline: z
+//             .string()
+//             .trim()
+//             .max(300, { message: "Subheadline must be between 10 and 300 characters" })
+//             .optional(),
+//             blocks: z.array(PageBlocksSchema).optional(), 
+//     })
+//     .strict();
+
+
 export type TPageSection = z.infer<typeof PageSectionSchema>;
 
 export const MetadataDtoSchema = z.object({

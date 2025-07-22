@@ -63,13 +63,13 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                                                                     <DropdownMenuTrigger className="p-2">
                                                                         <MoreHorizontal size={16} />
                                                                     </DropdownMenuTrigger>
-                                                                    <DropdownMenuContent side="top">
+                                                                    <DropdownMenuContent side="top" className="bg-white">
                                                                         {
-                                                                            idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
+                                                                            idx !== 0 && <DropdownMenuItem className="gap-1" onClick={() => swap(idx, idx - 1)}>
                                                                                 <ChevronUp /> Move Up
                                                                             </DropdownMenuItem>
                                                                         }
-                                                                        <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => swap(idx, idx + 1)}>
                                                                             <ChevronDown /> Move Down
                                                                         </DropdownMenuItem>
                                                                         <AddBlockDialog
@@ -80,15 +80,15 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                                                                         >
                                                                             <Button
                                                                                 variant={"ghost"}
-                                                                                className="w-full justify-start !px-2 !py-1.5 hover:!bg-accent font-normal"
+                                                                                className="w-full  justify-start !px-2 !py-1.5 hover:!bg-accent font-normal"
                                                                             >
                                                                                 <span className="text-muted-foreground"><Plus /></span>
                                                                                 Add Below
                                                                             </Button>
                                                                         </AddBlockDialog>
-                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
                                                                         </DropdownMenuItem>
-                                                                        <DropdownMenuItem onClick={() => remove(idx)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => remove(idx)}>
                                                                             <X /> Remove
                                                                         </DropdownMenuItem>
                                                                     </DropdownMenuContent>

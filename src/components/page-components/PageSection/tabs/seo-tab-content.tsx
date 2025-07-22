@@ -1,69 +1,34 @@
 import { useFormContext } from "react-hook-form";
 import type { TPageDto } from "../../../../Models/page.model";
-import {  FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage  } from "../../../ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../ui/form";
 import { Input } from "../../../ui/input";
 import { Textarea } from "../../../ui/textarea";
+import InputField from "../../../form-component/input-form";
 
 export default function SeoTabContent() {
     const form = useFormContext<TPageDto>();
 
     return (
         <section className="space-y-6">
-            <FormField
-                control={form.control}
-                name={`metadata.title`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Title <span className="text-red-500">*</span></FormLabel>
-                        <FormControl>
-                            <Input
-                                className='py-5'
-                                required
-                                {...field}
-                            />
-                        </FormControl>
-                        <FormDescription>
-                            This should be between 50 and 60 characters. For help in writing quality meta titles, see&nbsp;
-                            <a
-                                href="https://developers.google.com/search/docs/advanced/appearance/title-link#page-titles"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="underline"
-                            >
-                                best practices
-                            </a>.
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                )}
+            <InputField
+                formField={{
+                    label: "Title",
+                    name: `metadata.title`,
+                    type: "text",
+                    placeholder: "Enter metadata title",
+                    required: true,
+                }}
             />
-            <FormField
-                control={form.control}
-                name={`metadata.description`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Description</FormLabel>
-                        <FormControl>
-                            <Textarea
-                                className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
-                                {...field}
-                            />
-                        </FormControl>
-                        <FormDescription>
-                            This should be between 100 and 150 characters. For help in writing quality meta descriptions, see&nbsp;
-                            <a
-                                href="https://developers.google.com/search/docs/advanced/appearance/snippet#meta-descriptions"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="underline"
-                            >
-                                best practices
-                            </a>
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                )}
+
+            <InputField
+                formField={{
+                    label: "Description",
+                    name: `metadata.description`,
+                    type: "text",
+                    placeholder: "Enter metadata description",
+                }}
             />
+
             <FormField
                 control={form.control}
                 name={`metadata.keywords`}
@@ -72,14 +37,20 @@ export default function SeoTabContent() {
                         <FormLabel>Keywords</FormLabel>
                         <FormControl>
                             <Input
-                                className='py-5'
-                                {...field}
-                                value={field.value?.join(',')}
-                                onChange={(e) => field.onChange(e.target.value.split(','))}
+                                placeholder="Comma-separated keywords (e.g., keyword1, keyword2)"
+                                value={field.value?.join(', ') || ''}
+                                onChange={(e) => {
+                                    // Convert comma-separated string back to array
+                                    const keywords = e.target.value
+                                        .split(',')
+                                        .map(k => k.trim())
+                                        .filter(k => k.length > 0);
+                                    field.onChange(keywords);
+                                }}
                             />
                         </FormControl>
                         <FormDescription>
-                            Comma(,) separated values that describe the page and are relevant.
+                            Enter keywords separated by commas
                         </FormDescription>
                         <FormMessage />
                     </FormItem>

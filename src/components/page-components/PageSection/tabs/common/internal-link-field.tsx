@@ -45,9 +45,9 @@ export function InternalLinkField({
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="!min-w-full p-0">
+                    <PopoverContent className="!min-w-full p-0 bg-white">
                         <Command shouldFilter={false}>
-                            <CommandInput placeholder={"Select a value"} onValueChange={val => setSearch(val)} />
+                            <CommandInput className='outline-none' placeholder={"Select a value"} onValueChange={val => setSearch(val)} />
                             <CommandEmpty>No results found.</CommandEmpty>
                             {isLoading && <CommandEmpty>Loading...</CommandEmpty>}
                             <CommandGroup>

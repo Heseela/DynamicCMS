@@ -13,19 +13,13 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "../../../../ui/dropdown-menu";
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../../ui/form";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "../../../../ui/select";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../../ui/form";
 import { RadioGroup, RadioGroupItem } from "../../../../ui/radio-group";
 import { ELinkType } from "../../../../../Types/global.types";
 import { Checkbox } from "../../../../form-component/checkbox-form-field";
 import { Input } from "../../../../ui/input";
 import { ECtaVariant } from "../../../../../Types/blocks.types";
+import SelectField from "../../../../form-component/select-form-field";
 
 type Props = {
     idx: number
@@ -51,14 +45,14 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                             <DropdownMenuTrigger className="p-2">
                                 <MoreHorizontal size={16} />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent side="top">
+                            <DropdownMenuContent side="top" className="bg-white">
                                 {
                                     idx !== 0 && <DropdownMenuItem><ChevronUp /> Move Up</DropdownMenuItem>
                                 }
-                                <DropdownMenuItem><ChevronDown /> Move Down</DropdownMenuItem>
-                                <DropdownMenuItem><Plus /> Add Below</DropdownMenuItem>
-                                <DropdownMenuItem><Copy /> Duplicate</DropdownMenuItem>
-                                <DropdownMenuItem
+                                <DropdownMenuItem className="gap-1"><ChevronDown /> Move Down</DropdownMenuItem>
+                                <DropdownMenuItem className="gap-1"><Plus /> Add Below</DropdownMenuItem>
+                                <DropdownMenuItem className="gap-1"><Copy /> Duplicate</DropdownMenuItem>
+                                <DropdownMenuItem className="gap-1"
                                     onClick={onRemove}
                                 >
                                     <X /> Remove
@@ -69,6 +63,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                 </section>
                 <AccordionContent className="px-3 py-5 bg-background space-y-6">
                     <section className="grid grid-cols-2 gap-6">
+
                         <FormField
                             control={form.control}
                             name={`${name}.type`}
@@ -77,29 +72,22 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                     <FormLabel>Type</FormLabel>
                                     <FormControl>
                                         <RadioGroup
-                                            onValueChange={val => {
+                                            onValueChange={(val) => {
                                                 form.setValue(`${name}.link`, "");
                                                 field.onChange(val);
                                             }}
                                             defaultValue={field.value}
-                                            className="flex"
+                                            className="flex  gap-10"
                                         >
-                                            <FormItem className="flex items-center gap-3">
-                                                <FormControl>
-                                                    <RadioGroupItem value={ELinkType.Internal} />
-                                                </FormControl>
-                                                <FormLabel className="font-normal">
-                                                    Internal Link
-                                                </FormLabel>
-                                            </FormItem>
-                                            <FormItem className="flex items-center gap-3">
-                                                <FormControl>
-                                                    <RadioGroupItem value={ELinkType.External} />
-                                                </FormControl>
-                                                <FormLabel className="font-normal">
-                                                    Custom URL
-                                                </FormLabel>
-                                            </FormItem>
+                                            <label className="flex items-center gap-2">
+                                                <RadioGroupItem value={ELinkType.Internal} id="internal" />
+                                                <span className="text-sm font-normal">Internal Link</span>
+                                            </label>
+
+                                            <label className="flex items-center gap-2">
+                                                <RadioGroupItem value={ELinkType.External} id="external" />
+                                                <span className="text-sm font-normal">Custom URL</span>
+                                            </label>
                                         </RadioGroup>
                                     </FormControl>
                                     <FormMessage />
@@ -107,49 +95,47 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                             )}
                         />
 
-                        <section className="flex gap-10 items-end">
+
+                        <section className="flex gap-10 items-end ">
                             <FormField
                                 control={form.control}
                                 name={`${name}.arrow`}
-                                render={({ field }) => {
-                                    return (
-                                        <FormItem className="flex flex-row items-center gap-2">
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <div className="flex items-center gap-2">
                                             <FormControl>
                                                 <Checkbox
                                                     checked={field.value}
                                                     onCheckedChange={(checked) => field.onChange(checked)}
                                                 />
                                             </FormControl>
-                                            <FormLabel className="text-sm font-normal">
-                                                Include Arrow
-                                            </FormLabel>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )
-                                }}
+                                            <FormLabel className="text-sm font-normal">Include Arrow</FormLabel>
+                                        </div>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
 
                             <FormField
                                 control={form.control}
                                 name={`${name}.newTab`}
-                                render={({ field }) => {
-                                    return (
-                                        <FormItem className="flex flex-row items-center gap-2">
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <div className="flex items-center gap-2">
                                             <FormControl>
                                                 <Checkbox
                                                     checked={field.value}
                                                     onCheckedChange={(checked) => field.onChange(checked)}
                                                 />
                                             </FormControl>
-                                            <FormLabel className="text-sm font-normal">
-                                                Open in new tab
-                                            </FormLabel>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )
-                                }}
+                                            <FormLabel className="text-sm font-normal">Open in new tab</FormLabel>
+                                        </div>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
                         </section>
+
 
                         <FormField
                             control={form.control}
@@ -195,7 +181,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                         />
                     </section>
 
-                    <FormField
+                    {/* <FormField
                         control={form.control}
                         name={`${name}.variant`}
                         render={({ field }) => (
@@ -221,6 +207,20 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                 <FormMessage />
                             </FormItem>
                         )}
+                    /> */}
+
+                    <SelectField
+                        formField={{
+                            name: `${name}.variant`,
+                            label: "Appearance",
+                            options: Object.entries(ECtaVariant).map(([key, value]) => ({
+                                value: value,
+                                label: key,
+                            })),
+                            placeholder: "Select an option",
+                            description: "Choose how the link should be rendered.",
+                            required: true, // Add if this field is required
+                        }}
                     />
                 </AccordionContent>
             </AccordionItem>

@@ -1,14 +1,14 @@
-import { type FieldValues, type Path, useFormContext } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../../ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../ui/select";
+import { type FieldValues, type Path } from "react-hook-form";
 import { EAlignment, EAlignmentExcludeCenter } from "../../../../../Types/global.types";
+import SelectField from "../../../../form-component/select-form-field";
+
 type Props<T> = {
-    name: Path<T>,
-    label?: string,
-    placeholder?: string,
-    required?: boolean,
-    excludeCenter?: boolean
-}
+    name: Path<T>;
+    label?: string;
+    placeholder?: string;
+    required?: boolean;
+    excludeCenter?: boolean;
+};
 
 export default function AlignmentSelect<T extends FieldValues>({
     name,
@@ -17,39 +17,21 @@ export default function AlignmentSelect<T extends FieldValues>({
     required = false,
     excludeCenter = false,
 }: Props<T>) {
-    const form = useFormContext<T>();
+    const options = Object.entries(excludeCenter ? EAlignmentExcludeCenter : EAlignment)
+        .map(([key, value]) => ({
+            value,
+            label: key,
+        }));
 
     return (
-        <FormField
-            control={form.control}
-            name={name}
-            render={({ field }) => (
-                <FormItem>
-                    <FormLabel>{label} {required && <span className="text-red-500">*</span>}</FormLabel>
-                    <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value}
-                        required={required}
-                    >
-                        <FormControl>
-                            <SelectTrigger className="w-full py-5">
-                                <SelectValue placeholder={placeholder} />
-                            </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                            {Object.entries(excludeCenter ? EAlignmentExcludeCenter : EAlignment).map(([key, value]) => (
-                                <SelectItem 
-                                    key={key} 
-                                    value={value}
-                                >
-                                    {key}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                </FormItem>
-            )}
+        <SelectField
+            formField={{
+                name,
+                label,
+                options,
+                placeholder,
+                required,
+            }}
         />
-    )
+    );
 }

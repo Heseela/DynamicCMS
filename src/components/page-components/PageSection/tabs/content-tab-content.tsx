@@ -18,15 +18,15 @@ import {
 } from "../../../ui/dropdown-menu";
 import { Button } from "../../../ui/button";
 import BlockField from "./block-field";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../ui/select";
 import { Textarea } from "../../../ui/textarea";
 import { Input } from "../../../ui/input";
+import SelectField from "../../../form-component/select-form-field";
 
 const sectionDefaultValue = {
     headline: "",
     subheadline: "",
     blocks: {
-        direction: "horizontal" as "horizontal" | "vertical",
+        direction: "horizontal" as const,
         items: []
     }
 }
@@ -76,21 +76,21 @@ export default function ContentTabContent() {
                                                                     <DropdownMenuTrigger className="p-2">
                                                                         <MoreHorizontal size={16} />
                                                                     </DropdownMenuTrigger>
-                                                                    <DropdownMenuContent side="top">
+                                                                    <DropdownMenuContent side="top" className="bg-white">
                                                                         {
-                                                                            idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
+                                                                            idx !== 0 && <DropdownMenuItem className="gap-1" onClick={() => swap(idx, idx - 1)}>
                                                                                 <ChevronUp /> Move Up
                                                                             </DropdownMenuItem>
                                                                         }
-                                                                        <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => swap(idx, idx + 1)}>
                                                                             <ChevronDown /> Move Down
                                                                         </DropdownMenuItem>
-                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, sectionDefaultValue)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => insert(idx + 1, sectionDefaultValue)}>
                                                                             <Plus /> Add Below
                                                                         </DropdownMenuItem>
-                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
                                                                         </DropdownMenuItem>
-                                                                        <DropdownMenuItem onClick={() => remove(idx)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => remove(idx)}>
                                                                             <X /> Remove
                                                                         </DropdownMenuItem>
                                                                     </DropdownMenuContent>
@@ -137,26 +137,17 @@ export default function ContentTabContent() {
 
                                                             {
                                                                 !!field.value.blocks?.items?.length && (
-                                                                    <FormField
-                                                                        control={form.control}
-                                                                        name={`sections.${idx}.blocks.direction`}
-                                                                        render={({ field }) => (
-                                                                            <FormItem>
-                                                                                <FormLabel>Blocks Direction</FormLabel>
-                                                                                <Select onValueChange={field.onChange} defaultValue={field.value} required>
-                                                                                    <FormControl>
-                                                                                        <SelectTrigger className="w-full py-5">
-                                                                                            <SelectValue placeholder={"Select an option"} />
-                                                                                        </SelectTrigger>
-                                                                                    </FormControl>
-                                                                                    <SelectContent>
-                                                                                        <SelectItem value={"horizontal"}>Horizontal</SelectItem>
-                                                                                        <SelectItem value={"vertical"}>Vertical</SelectItem>
-                                                                                    </SelectContent>
-                                                                                </Select>
-                                                                                <FormMessage />
-                                                                            </FormItem>
-                                                                        )}
+                                                                    <SelectField
+                                                                        formField={{
+                                                                            name: `sections.${idx}.blocks.direction`,
+                                                                            label: "Blocks Direction",
+                                                                            options: [
+                                                                                { value: "horizontal", label: "Horizontal" },
+                                                                                { value: "vertical", label: "Vertical" }
+                                                                            ],
+                                                                            placeholder: "Select an option",
+                                                                            required: true
+                                                                        }}
                                                                     />
                                                                 )
                                                             }

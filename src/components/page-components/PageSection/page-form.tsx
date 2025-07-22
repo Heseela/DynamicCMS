@@ -62,11 +62,19 @@ export default function PageForm({ page }: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='h-full'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='bg-white py-4'>
                 <div className="h-full flex flex-col space-y-6">
-                    <h2 className="px-8 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
+                    <div className='flex sticky justify-between px-8'>
+                    <h2 className=" text-3xl font-medium capitalize">{name || "Untitled"}</h2>
 
-                    <div className="sticky top-0 z-[1] backdrop-blur-3xl border-y mb-0">
+                    <SubmitButton
+                                isLoading={isPending}
+                                title={slug ? "Update" : "Save"}
+                                showBackBtn={false}
+                            />
+                    </div>
+
+                    {/* <div className="sticky top-0 z-[1] backdrop-blur-3xl border-y mb-0">
                         <div className="px-8 py-3 flex items-center justify-between flex-wrap gap-6">
                             <div className="text-sm flex gap-6">
                                 <p>
@@ -89,7 +97,7 @@ export default function PageForm({ page }: Props) {
                                 showBackBtn={false}
                             />
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className='grow grid grid-cols-3'>
                         <div className='col-span-2 border-r py-8'>

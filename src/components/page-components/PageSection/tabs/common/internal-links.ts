@@ -1,19 +1,22 @@
+import { useCustomQuery } from "../../../../../Global/get-query";
 import type { TPaginatedOptions } from "../../../../../Types/global.types";
 import { QueryKey } from "../../../../../Types/query.types";
-import { useFetchData } from "../../../../../hooks/useFetchData";
-
 
 export function useInternalLinks(queryString: string = "") {
-    const { data: pages, isLoading: isPagesLoading } = useFetchData<TPaginatedOptions>({
-        endpoint: QueryKey.PAGES,
+    const { 
+        data: pages, 
+        isLoading: isPagesLoading 
+    } = useCustomQuery<TPaginatedOptions>({
+        endPoint: QueryKey.PAGES,
         queryKey: ['pages', 'options', queryString],
-        queryString,
     });
 
-    const { data: blogs, isLoading: isBlogsLoading } = useFetchData<TPaginatedOptions>({
-        endpoint: '/blogs/options',
+    const { 
+        data: blogs, 
+        isLoading: isBlogsLoading 
+    } = useCustomQuery<TPaginatedOptions>({
+        endPoint: '/blog-categories/options',
         queryKey: ['blogs', 'options', queryString],
-        queryString,
     });
 
     const isLoading = isPagesLoading || isBlogsLoading;
@@ -22,13 +25,13 @@ export function useInternalLinks(queryString: string = "") {
         data: [
             {
                 label: 'pages',
-                options: pages,
+                options: pages?.data || [], 
             },
             {
                 label: 'blogs',
-                options: blogs,
+                options: blogs?.data || [], 
             },
         ],
         isLoading
-    }
+    };
 }

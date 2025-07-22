@@ -7,8 +7,8 @@ import FormBlock from "./form-block";
 import { EBlock } from "../../../../../Types/blocks.types";
 
 export type BlockComponentProps = {
-    sectionIdx: number
-    blockIdx: number
+    sectionIdx: number;
+    blockIdx: number;
 }
 
 export const blocks: Partial<Record<EBlock, FC<BlockComponentProps>>> = {

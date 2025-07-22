@@ -8,7 +8,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "../../../ui/accordion";
-import { Badge } from "../../../ui/badge";
+import { Badge } from "../../../ui/badge"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -67,13 +67,14 @@ export default function HeroTabContent() {
                                                                     <DropdownMenuTrigger className="p-2">
                                                                         <MoreHorizontal size={16} />
                                                                     </DropdownMenuTrigger>
-                                                                    <DropdownMenuContent side="top">
+                                                                    <DropdownMenuContent side="top" className="bg-white">
                                                                         {
-                                                                            idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
+                                                                            idx !== 0 && <DropdownMenuItem className="gap-1"
+                                                                            onClick={() => swap(idx, idx - 1)}>
                                                                                 <ChevronUp /> Move Up
                                                                             </DropdownMenuItem>
                                                                         }
-                                                                        <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => swap(idx, idx + 1)}>
                                                                             <ChevronDown /> Move Down
                                                                         </DropdownMenuItem>
                                                                         <AddHeroSectionDialog
@@ -90,16 +91,16 @@ export default function HeroTabContent() {
                                                                         >
                                                                             <Button
                                                                                 variant={"ghost"}
-                                                                                className="w-full justify-start !px-2 !py-1.5 hover:!bg-accent font-normal"
+                                                                                className="w-full justify-start !px-2 !py-1.5 hover:!bg-accent font-normal gap-1"
                                                                             >
                                                                                 <span className="text-muted-foreground"><Plus /></span>
                                                                                 Add Below
                                                                             </Button>
                                                                         </AddHeroSectionDialog>
-                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => insert(idx + 1, field.value)}>
                                                                             <Copy /> Duplicate
                                                                         </DropdownMenuItem>
-                                                                        <DropdownMenuItem onClick={() => remove(idx)}>
+                                                                        <DropdownMenuItem className="gap-1" onClick={() => remove(idx)}>
                                                                             <X /> Remove
                                                                         </DropdownMenuItem>
                                                                     </DropdownMenuContent>
@@ -184,11 +185,9 @@ export default function HeroTabContent() {
                                                                                         label: "Image",
                                                                                         type: "image",
                                                                                         accept: "image/*",
-                                                                                        required: true,
+                                                                                        // required: true,
                                                                                         multiple: false
                                                                                     }}
-                                                                                    onChange={field.onChange}
-                                                                                    value={field.value}
                                                                                 />
                                                                             )}
                                                                         />
