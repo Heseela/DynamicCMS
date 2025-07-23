@@ -18,7 +18,7 @@ const NUMBER_REGEX_STRING = "^[0-9]*$";
 export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
 
-    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
+    const blockName = `sections.${sectionIdx}.blocks.0.items.${blockIdx}` as const;
     const cardFieldName = `${blockName}.cards` as const;
 
     const { fields, append, remove } = useFieldArray({

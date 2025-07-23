@@ -25,10 +25,10 @@ import SelectField from "../../../form-component/select-form-field";
 const sectionDefaultValue = {
     headline: "",
     subheadline: "",
-    blocks: {
-        direction: "horizontal" as const,
+    blocks: [{
+        direction: "horizontal" as "horizontal" | "vertical",
         items: []
-    }
+    }]
 }
 
 export default function ContentTabContent() {
@@ -135,23 +135,20 @@ export default function ContentTabContent() {
 
                                                             <BlockField sectionIdx={idx} />
 
-                                                            {
-                                                                !!field.value.blocks?.items?.length && (
-                                                                    <SelectField
-                                                                        formField={{
-                                                                            name: `sections.${idx}.blocks.direction`,
-                                                                            label: "Blocks Direction",
-                                                                            options: [
-                                                                                { value: "horizontal", label: "Horizontal" },
-                                                                                { value: "vertical", label: "Vertical" }
-                                                                            ],
-                                                                            placeholder: "Select an option",
-                                                                            required: true
-                                                                        }}
-                                                                    />
-                                                                )
-                                                            }
-
+                                                            {field.value.blocks?.[0]?.items?.length && (
+                                                                <SelectField
+                                                                    formField={{
+                                                                        name: `sections.${idx}.blocks.0.direction`,
+                                                                        label: "Blocks Direction",
+                                                                        options: [
+                                                                            { value: "horizontal", label: "Horizontal" },
+                                                                            { value: "vertical", label: "Vertical" }
+                                                                        ],
+                                                                        placeholder: "Select an option",
+                                                                        required: true
+                                                                    }}
+                                                                />
+                                                            )}
                                                         </AccordionContent>
                                                     </AccordionItem>
                                                 </Accordion>

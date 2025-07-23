@@ -9,7 +9,7 @@ import { InfiniteSelect } from "../../../../form-component/infinite-select";
 
 export default function FormBlock({ blockIdx, sectionIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
-    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
+    const blockName = `sections.${sectionIdx}.blocks.0.items.${blockIdx}` as const;
 
     return (
         <section className="space-y-6">
