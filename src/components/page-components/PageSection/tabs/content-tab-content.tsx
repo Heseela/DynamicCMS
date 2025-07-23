@@ -135,7 +135,7 @@ export default function ContentTabContent() {
 
                                                             <BlockField sectionIdx={idx} />
 
-                                                            {field.value.blocks?.[0]?.items?.length && (
+                                                            {field.value.blocks && field.value.blocks[0]?.items?.length>0 && (
                                                                 <SelectField
                                                                     formField={{
                                                                         name: `sections.${idx}.blocks.0.direction`,

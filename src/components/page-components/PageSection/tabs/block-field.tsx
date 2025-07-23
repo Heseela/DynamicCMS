@@ -111,8 +111,6 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                                     )
                                 }}
                             />
-
-
                         )
                     })
                 }
@@ -128,7 +126,7 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                     variant={"outline"}
                     size={"sm"}
                     className="font-normal text-xs"
-                    disabled={length >= 5}
+                    disabled={fields.length >= 5}
                 >
                     <Plus size={16} /> Add Block
                 </Button>
