@@ -3,6 +3,7 @@ import { z } from "zod";
 import { ECtaVariant } from "../Types/blocks.types";
 import { EAlignment, EAlignmentExcludeCenter, ELinkType } from "../Types/global.types";
 import { EHeroLayoutTypes } from "../Types/page.types";
+import { mediaSchema } from "./media.model";
 
 export const CTADtoSchema = z.object({
     link: z
@@ -62,8 +63,7 @@ export const HeroSectionDtoSchema = z.object({
         .trim()
         .max(200, { message: "Subheadline must be between 10 and 200 characters" }),
 
-        imageId: z.string().min(1, "Image is required"),
-
+    image: mediaSchema.optional(),
     cta: z
         .array(CTADtoSchema)
         .max(2, { message: "CTA must be less than 2" }),
@@ -71,17 +71,11 @@ export const HeroSectionDtoSchema = z.object({
     layout: HeroLayoutSchema,
 });
 
-export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema> & {
-    image?: { 
-      url: string;
-      originalName?: string;
-    };
-  };
+export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema>;
   
   export const heroSectionDtoDefaultValues: THeroSectionDto = {
     headline: "Untitled",
     subheadline: "",
-    imageId: "", 
     image: undefined,
     cta: [],
     layout: {

@@ -81,8 +81,8 @@ export default function HeroTabContent() {
                                                                         insert(idx + 1, {
                                                                             headline: "Untitled",
                                                                             subheadline: "",
-                                                                            imageId: "",
                                                                             cta: [],
+                                                                            image:"",
                                                                             layout
                                                                         });
                                                                     }}
@@ -145,15 +145,13 @@ export default function HeroTabContent() {
 
                                                     <FormField
                                                         control={form.control}
-                                                        name={`heroSections.${idx}.imageId`}
+                                                        name={`heroSections.${idx}.image`}
                                                         render={({ field }) => (
                                                             <ImageUploadField
                                                                 formField={{
                                                                     name: field.name,
                                                                     label: "Hero Image",
                                                                     type:"image",
-                                                                    // accept:"/image.png",
-                                                                    required: true,
                                                                 }}
                                                                 imageURLs={imageUrl}
                                                             />

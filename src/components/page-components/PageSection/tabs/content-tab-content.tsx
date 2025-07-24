@@ -33,7 +33,6 @@ const sectionDefaultValue = {
 
 export default function ContentTabContent() {
     const form = useFormContext<TPageDto>();
-
     const { fields, append, remove, swap, insert } = useFieldArray({
         control: form.control,
         name: "sections",

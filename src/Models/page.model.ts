@@ -2,19 +2,12 @@ import { z } from "zod";
 import { EBlock, ECardsBlockLayout } from "../Types/blocks.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero.model";
 import { EAlignment, ELinkType, EOrder, ERefRelation } from "../Types/global.types";
+import { mediaSchema } from "./media.model";
 
 // ---- BaseBlock ----
 export const BaseBlockSchema = z.object({
     type: z.nativeEnum(EBlock),
 });
-
-export const mediaSchema = z.object({
-    imageId: z.string().min(1, "Image ID is required"),
-    url: z.string(),
-    originalName: z.string(),
-});
-
-export type TMediaSchema = z.infer<typeof mediaSchema>
 
 // ---- TextBlockDto ----
 export const TextBlockSchema = BaseBlockSchema.extend({

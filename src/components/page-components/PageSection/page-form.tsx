@@ -64,6 +64,8 @@ export default function PageForm({ page }: Props) {
         return generateSlug(nonEmptyName, nonEmptyName === "Untitled");
     }, [name]);
 
+    console.log(form.formState.errors)
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='bg-white py-4'>
