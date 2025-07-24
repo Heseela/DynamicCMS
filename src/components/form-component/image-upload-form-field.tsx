@@ -262,20 +262,16 @@ export function ImageUploadFormField<T extends Record<string, any>>({
         }]);
       }
     }
-  }, [imageURLs, formField.name, formField.multiple, getValues]);
+  }, [imageURLs]);
 
   useEffect(() => {
-    if (uploadedImages.length > 0) {
       setValue(
         formField.name as string,
         formField.multiple
           ? uploadedImages.map(img => img.id)
           : uploadedImages[0]?.id ?? undefined
       );
-    } else {
-      setValue(formField.name as string, formField.multiple ? [] : undefined);
-    }
-  }, [uploadedImages, formField.multiple, formField.name, setValue]);
+  }, [uploadedImages]);
 
   useEffect(() => {
     if (isSubmitSuccessful && reset) {

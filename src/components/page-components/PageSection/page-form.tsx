@@ -15,8 +15,6 @@ import { Label } from '../../ui/label';
 import { useCustomMutation } from '../../../Global/custom-muation';
 import { QueryKey } from '../../../Types/query.types';
 import SubmitButton from '../../../Global/Button';
-import { useNavigate } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
 
 type Props = {
     page: TPage
@@ -30,51 +28,31 @@ const tabs = [
 
 export default function PageForm({ page }: Props) {
 
-    const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
 
     const form = useForm<TPageDto>({
         resolver: zodResolver(PageDtoSchema),
         defaultValues: page,
     });
 
-    // const { mutate, isPending } = useCustomMutation<TPageDto>({
-    //     endPoint: `${QueryKey.PAGES}/${page.slug}`,
-    //     queryKey: [QueryKey.PAGES, page.slug],
-    //     method: "patch",
-    // });
-
-    // const onSubmit = (data: TPageDto) => {
-    //     console.log('Form data:', data); 
-    //     mutate(data, {
-    //         onSuccess: () => {
-    //             toast.success("Page updated successfully");
-    //         },
-    //         onError: (error) => {
-    //             toast.error(error.message || "Failed to update page");
-    //         },
-    //     });
-    // };
-
     const { mutate, isPending } = useCustomMutation<TPageDto>({
         endPoint: `${QueryKey.PAGES}/${page.slug}`,
-        queryKey: [QueryKey.PAGES],
+        queryKey: [QueryKey.PAGES, page.slug],
         method: "patch",
     });
-    
+
     const onSubmit = (data: TPageDto) => {
+        console.log('Form data:', data); 
         mutate(data, {
             onSuccess: () => {
                 toast.success("Page updated successfully");
-                queryClient.invalidateQueries({ queryKey: [QueryKey.PAGES] });
-                navigate("/");
             },
             onError: (error) => {
                 toast.error(error.message || "Failed to update page");
             },
         });
     };
+
+   
 
     const name = useWatch({
         control: form.control,

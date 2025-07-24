@@ -81,7 +81,7 @@ export default function HeroTabContent() {
                                                                         insert(idx + 1, {
                                                                             headline: "Untitled",
                                                                             subheadline: "",
-                                                                            image: null,
+                                                                            imageId: "",
                                                                             cta: [],
                                                                             layout
                                                                         });

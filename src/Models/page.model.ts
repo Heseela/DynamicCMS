@@ -8,6 +8,14 @@ export const BaseBlockSchema = z.object({
     type: z.nativeEnum(EBlock),
 });
 
+export const mediaSchema = z.object({
+    imageId: z.string().min(1, "Image ID is required"),
+    url: z.string(),
+    originalName: z.string(),
+});
+
+export type TMediaSchema = z.infer<typeof mediaSchema>
+
 // ---- TextBlockDto ----
 export const TextBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Text),
@@ -34,13 +42,7 @@ export const TextBlockSchema = BaseBlockSchema.extend({
 // ---- ImageBlockDto ----
 export const ImageBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Image),
-    images: z.array(
-        z.object({
-            imageId: z.string().min(1, "Image ID is required"),
-            url: z.string().optional(),
-            originalName: z.string().optional(),
-        })
-    ).min(1, { message: "At least one image is required" }),
+    images: z.array(mediaSchema).min(1, { message: "At least one image is required" }),
 });
 
 // ---- CardDto ----
