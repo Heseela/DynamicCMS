@@ -5,9 +5,9 @@ import { Button } from "../../ui/button";
 import type { TAsyncPage } from "../../../Models/pages.model";
 import { QueryKey } from "../../../Types/query.types";
 import { useCustomQuery } from "../../../Global/get-query";
-import PageForm from "./page-form";
 import Loading from "../../../Global/loader";
 import ErrorMessage from "../../../Global/error-message";
+import PageNameForm from "./page-name-form";
 
 const PagesList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +31,7 @@ const PagesList = () => {
         data={pages || []}
       />
 
-      <PageForm
+      <PageNameForm
         open={isModalOpen} 
         onOpenChange={setIsModalOpen} 
       />

@@ -18,7 +18,7 @@ type PageFormProps = {
   isEdit?: boolean;
 };
 
-const PageForm = ({ 
+const PageNameForm = ({ 
   open = true, 
   onOpenChange, 
   pageValues = PageDefaultValues, 
@@ -88,4 +88,4 @@ const PageForm = ({
   );
 };
 
-export default PageForm;
+export default PageNameForm;

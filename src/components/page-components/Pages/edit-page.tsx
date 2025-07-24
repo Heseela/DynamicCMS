@@ -1,11 +1,11 @@
 
 import { useParams } from "react-router-dom";
 import { PageDefaultValues, type TAsyncPage } from "../../../Models/pages.model";
-import PageForm from "./page-form";
 import { QueryKey } from "../../../Types/query.types";
 import { useCustomQuery } from "../../../Global/get-query";
 import ErrorMessage from "../../../Global/error-message";
 import Loading from "../../../Global/loader";
+import PageNameForm from "./page-name-form";
 
 const EditPage = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const EditPage = () => {
   if (error) return <ErrorMessage />;
 
   return (
-    <PageForm 
+    <PageNameForm 
       pageValues={page || PageDefaultValues}
       formTitle="Edit"
       isEdit={true}

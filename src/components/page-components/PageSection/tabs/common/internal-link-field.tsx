@@ -1,12 +1,15 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { useInternalLinks } from './internal-links';
-import type { SelectOption } from '../../../../../Types/global.types';
 import { cn, createQueryString } from '../../../../../lib/utils';
 import { FormControl, FormItem, FormLabel, FormMessage } from '../../../../ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '../../../../ui/popover';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '../../../../ui/command';
 import { Button } from '../../../../ui/button';
+import { useDebounce } from '../../../../../hooks/useDebounce';
+import type { SelectOption } from '../../../../../Types/global.types';
+
+
 
 type Props = {
     onChange: (value: string) => void
@@ -41,73 +44,67 @@ export function InternalLinkField({
                             aria-expanded={open}
                             className="w-full justify-between overflow-hidden disabled:!cursor-not-allowed disabled:pointer-events-auto"
                         >
-                            <span className='truncate font-normal'>{selectedValue?.label ?? 'Select a value...'}</span>
+                            <span className='truncate font-normal'>
+                                {selectedValue?.label ?? 'Select a document...'}
+                            </span>
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className="!min-w-full p-0 bg-white">
                         <Command shouldFilter={false}>
-                            <CommandInput className='outline-none' placeholder={"Select a value"} onValueChange={val => setSearch(val)} />
-                            <CommandEmpty>No results found.</CommandEmpty>
-                            {isLoading && <CommandEmpty>Loading...</CommandEmpty>}
+                            <CommandInput 
+                                placeholder="Search pages and blogs..." 
+                                onValueChange={setSearch}
+                                className='outline-none' 
+                            />
+                            <CommandEmpty>
+                                {isLoading ? "Loading..." : "No documents found."}
+                            </CommandEmpty>
                             <CommandGroup>
                                 <CommandList>
-                                    {data.map((group) => {
-                                        return !!group.options?.data?.length && (
-                                            <CommandGroup className='capitalize' heading={group.label} key={group.label}>
-                                                {group.options?.data.map((option) => {
-                                                    return (
-                                                        <CommandItem
-                                                            key={option.value}
-                                                            value={group.label === 'pages' ? `/${option.value}` : `/${group.label}/${option.value}`}
-                                                            onSelect={(currentValue) => {
-                                                                onChange(currentValue)
-                                                                setSelectedValue(option)
-                                                                setOpen(false)
-                                                            }}
-                                                            className='justify-between'
-                                                        >
-                                                            <div className='truncate'>
-                                                                {option.label}
-                                                            </div>
-
-                                                            <Check
-                                                                className={cn(
-                                                                    "mr-2 h-4 w-4",
-                                                                    selectedValue?.value === option.value ? "opacity-100" : "opacity-0"
-                                                                )}
-                                                            />
-                                                        </CommandItem>
-                                                    )
-                                                })}
-                                            </CommandGroup>
-                                        )
-                                    })}
+                                    {data.map((group) => (
+                                        <CommandGroup 
+                                            className='capitalize ' 
+                                            heading={group.label} 
+                                            key={group.label}
+                                        >
+                                            {group.options.map((option) => (
+                                                <CommandItem
+                                                    key={option.value}
+                                                    value={option.value}
+                                                    onSelect={(currentValue) => {
+                                                        const path = group.label === 'pages' 
+                                                            ? `/${option.value}` 
+                                                            : `/blog/${option.value}`;
+                                                        
+                                                        onChange(path);
+                                                        setSelectedValue(option);
+                                                        setOpen(false);
+                                                    }}
+                                                    className='justify-between'
+                                                >
+                                                    <div className='truncate '>
+                                                        {option.label}
+                                                    </div>
+                                                    <Check
+                                                        className={cn(
+                                                            "mr-2 h-4 w-4",
+                                                            selectedValue?.value === option.value 
+                                                                ? "opacity-100" 
+                                                                : "opacity-0"
+                                                        )}
+                                                    />
+                                                </CommandItem>
+                                            ))}
+                                        </CommandGroup>
+                                    ))}
                                 </CommandList>
                             </CommandGroup>
                         </Command>
                     </PopoverContent>
                 </Popover>
             </FormControl>
-
             <FormMessage />
         </FormItem>
     );
-}
-
-// Custom hook for debouncing
-function useDebounce<T>(value: T, delay: number): T {
-    const [debouncedValue, setDebouncedValue] = React.useState<T>(value)
-
-    React.useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedValue(value)
-        }, delay)
-
-        return () => {
-            clearTimeout(handler)
-        }
-    }, [value, delay])
-
-    return debouncedValue
 }
