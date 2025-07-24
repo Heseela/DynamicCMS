@@ -78,39 +78,44 @@ export function InfiniteSelect({
   );
 
   return (
-    <div className={`w-full ${className}`}>
+      <div className={`w-full ${className}`}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between min-h-10 h-auto bg-transparent"
+            className="w-full justify-between min-h-10 h-auto bg-white" 
           >
-            <div className="flex flex-wrap gap-1 flex-1">
+            <div className="flex flex-wrap gap-1 flex-1 overflow-hidden">
               {!selected?.label ? (
-                <span className="text-muted-foreground">{placeholder}</span>
+                <span className="text-muted-foreground truncate">{placeholder}</span>
               ) : (
-                <span>{selected.label}</span>
+                <span className="truncate">{selected.label}</span>
               )}
             </div>
             <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0" align="start">
-          <Command shouldFilter={false}>
+        <PopoverContent 
+          className="w-full bg-white p-0" 
+          align="start"
+          style={{ width: "var(--radix-popover-trigger-width)" }}
+        >
+          <Command shouldFilter={false} className="w-full">
             <CommandInput
               placeholder="Search options..." 
               value={search} 
               onValueChange={setSearch} 
+              className="outline-none "
             />
             <CommandList
               ref={listRef} 
               onScroll={handleScroll} 
-              className="max-h-64 overflow-auto"
+              className="max-h-64 overflow-y-auto w-full"
             >
               {error ? (
-                <Alert className="m-2">
+                <Alert className="m-2 border-none">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription className="text-sm flex items-center justify-between">
                     <span>{error.message}</span>

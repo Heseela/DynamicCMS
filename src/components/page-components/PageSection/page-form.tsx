@@ -15,6 +15,8 @@ import { Label } from '../../ui/label';
 import { useCustomMutation } from '../../../Global/custom-muation';
 import { QueryKey } from '../../../Types/query.types';
 import SubmitButton from '../../../Global/Button';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 type Props = {
     page: TPage
@@ -27,22 +29,46 @@ const tabs = [
 ];
 
 export default function PageForm({ page }: Props) {
+
+    const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+
     const form = useForm<TPageDto>({
         resolver: zodResolver(PageDtoSchema),
         defaultValues: page,
     });
+
+    // const { mutate, isPending } = useCustomMutation<TPageDto>({
+    //     endPoint: `${QueryKey.PAGES}/${page.slug}`,
+    //     queryKey: [QueryKey.PAGES, page.slug],
+    //     method: "patch",
+    // });
+
+    // const onSubmit = (data: TPageDto) => {
+    //     console.log('Form data:', data); 
+    //     mutate(data, {
+    //         onSuccess: () => {
+    //             toast.success("Page updated successfully");
+    //         },
+    //         onError: (error) => {
+    //             toast.error(error.message || "Failed to update page");
+    //         },
+    //     });
+    // };
 
     const { mutate, isPending } = useCustomMutation<TPageDto>({
         endPoint: `${QueryKey.PAGES}/${page.slug}`,
         queryKey: [QueryKey.PAGES],
         method: "patch",
     });
-
+    
     const onSubmit = (data: TPageDto) => {
-        console.log('Form data:', data); 
         mutate(data, {
             onSuccess: () => {
                 toast.success("Page updated successfully");
+                queryClient.invalidateQueries({ queryKey: [QueryKey.PAGES] });
+                navigate("/");
             },
             onError: (error) => {
                 toast.error(error.message || "Failed to update page");
@@ -73,31 +99,6 @@ export default function PageForm({ page }: Props) {
                                 showBackBtn={false}
                             />
                     </div>
-
-                    {/* <div className="sticky top-0 z-[1] backdrop-blur-3xl border-y mb-0">
-                        <div className="px-8 py-3 flex items-center justify-between flex-wrap gap-6">
-                            <div className="text-sm flex gap-6">
-                                <p>
-                                    <span className="text-muted-foreground">Last Modified: </span>
-                                    <time className="font-medium">
-                                        {new Date(page.updatedAt).toLocaleString()}
-                                    </time>
-                                </p>
-                                <p>
-                                    <span className="text-muted-foreground">Created: </span>
-                                    <time className="font-medium">
-                                        {new Date(page.createdAt).toLocaleString()}
-                                    </time>
-                                </p>
-                            </div>
-
-                            <SubmitButton
-                                isLoading={isPending}
-                                title={slug ? "Update" : "Save"}
-                                showBackBtn={false}
-                            />
-                        </div>
-                    </div> */}
 
                     <div className='grow grid grid-cols-3'>
                         <div className='col-span-2 border-r py-8'>

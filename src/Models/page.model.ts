@@ -2,7 +2,6 @@ import { z } from "zod";
 import { EBlock, ECardsBlockLayout } from "../Types/blocks.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero.model";
 import { EAlignment, ELinkType, EOrder, ERefRelation } from "../Types/global.types";
-import { mediaSchema } from "./media.model";
 
 // ---- BaseBlock ----
 export const BaseBlockSchema = z.object({
@@ -35,7 +34,13 @@ export const TextBlockSchema = BaseBlockSchema.extend({
 // ---- ImageBlockDto ----
 export const ImageBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Image),
-    images: z.array(mediaSchema).min(1, { message: "At least one image is required" }),
+    images: z.array(
+        z.object({
+            imageId: z.string().min(1, "Image ID is required"),
+            url: z.string().optional(),
+            originalName: z.string().optional(),
+        })
+    ).min(1, { message: "At least one image is required" }),
 });
 
 // ---- CardDto ----
@@ -66,7 +71,11 @@ export const CardSchema = z.object({
             if (data.type === ELinkType.External && !z.string().url().safeParse(data.url).success) return false;
             return true;
         }, "Invalid URL"),
-    image: mediaSchema.nullish(),
+        image: z.object({
+            imageId: z.string().min(1, "Image ID is required"),
+            url: z.string().optional(),
+            originalName: z.string().optional(),
+        }).nullish(),
 });
 
 // ---- CardsBlockDto ----
@@ -114,6 +123,18 @@ export const BlockSchema = z.discriminatedUnion("type", [
 
 export type TBlock = z.infer<typeof BlockSchema>;
 
+// Types
+export type TImageBlock = z.infer<typeof ImageBlockSchema>;
+export type TCard = z.infer<typeof CardSchema>;
+
+export const cardDefaultValues: TCard = {
+    title: "",
+    subtitle: "",
+    description: "",
+    link: undefined,
+    image: undefined,
+};
+
 // ---- PageBlocksDto ----
 export const PageBlocksSchema = z.object({
     direction: z.enum(["horizontal", "vertical"]),
@@ -132,26 +153,10 @@ export const PageSectionSchema = z
             .trim()
             .max(300, { message: "Subheadline must be between 10 and 300 characters" })
             .optional(),
-            blocks: z.array(PageBlocksSchema).optional()
+        blocks: z.array(PageBlocksSchema).optional()
     })
     .strict();
-
-// export const PageSectionSchema = z
-//     .object({
-//         headline: z
-//             .string()
-//             .trim()
-//             .max(50, { message: "Headline must be between 3 and 50 characters" }),
-//         subheadline: z
-//             .string()
-//             .trim()
-//             .max(300, { message: "Subheadline must be between 10 and 300 characters" })
-//             .optional(),
-//             blocks: z.array(PageBlocksSchema).optional(), 
-//     })
-//     .strict();
-
-
+    
 export type TPageSection = z.infer<typeof PageSectionSchema>;
 
 export const MetadataDtoSchema = z.object({
