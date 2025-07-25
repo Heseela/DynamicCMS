@@ -10,7 +10,9 @@ export enum FormFieldType {
   Number = 'number',
   File = 'file',
   Select = 'select',
-  Relation = 'relation'
+  Relation = 'relation',
+  Checkbox = 'checkbox',
+  Radio = 'radio'
 }
 
 export enum FormFieldDataSourceEntity {
@@ -29,7 +31,9 @@ export type TFormFieldType =
   | FormFieldType.Number
   | FormFieldType.File
   | FormFieldType.Select
-  | FormFieldType.Relation;
+  | FormFieldType.Relation
+  | FormFieldType.Checkbox
+  | FormFieldType.Radio
 
 const FieldValidationSchema = z.object({
   minLength: z.number().optional(),
@@ -123,6 +127,19 @@ export const RelationFieldSchema = BaseFieldSchema.extend({
     defaultValue: z.string().optional(),
 });
 
+export const CheckboxFieldSchema = BaseFieldSchema.extend({
+  type: z.literal(FormFieldType.Checkbox),
+  defaultValue: z.boolean().optional(),
+});
+
+export const RadioFieldSchema = BaseFieldSchema.extend({
+  type: z.literal(FormFieldType.Radio),
+  options: z
+      .array(FormFieldOptionSchema)
+      .min(1, { message: "At least one option is required" }),
+  defaultValue: z.string().optional(),
+});
+
 export const FormFieldSchema = z.discriminatedUnion("type", [
   TextFieldSchema,
   EmailFieldSchema,
@@ -132,6 +149,8 @@ export const FormFieldSchema = z.discriminatedUnion("type", [
   FileFieldSchema,
   SelectFieldSchema,
   RelationFieldSchema,
+  CheckboxFieldSchema,
+  RadioFieldSchema,
 ]);
 
 export const FormSchema = z.object({
@@ -157,16 +176,3 @@ export type TFormList = {
   data: TForm[];
   meta: TMeta;
 };
-
-// export type TFormSubmission = {
-//   id?: string;
-//   formSlug: string;
-//   data: Record<string, any>;
-//   createdAt?: string;
-//   updatedAt?: string;
-// };
-
-// export type TFormSubmissionList = {
-//   data: TFormSubmission[];
-//   meta: TMeta;
-// };

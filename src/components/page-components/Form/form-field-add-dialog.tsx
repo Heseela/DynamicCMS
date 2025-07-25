@@ -12,6 +12,7 @@ import { Plus } from "lucide-react";
 
 type FormAddFieldDialogProps = {
   onAddField: (type: FormFieldType) => void;
+  children?: React.ReactNode;
 };
 
 const fieldTypes = [
@@ -23,40 +24,52 @@ const fieldTypes = [
   { type: FormFieldType.File, label: "File Upload" },
   { type: FormFieldType.Tel, label: "Tel Input" },
   { type: FormFieldType.Relation, label: "Relation Field" },
+   { type: FormFieldType.Checkbox, label: "Checkbox Field" },
+   { type: FormFieldType.Radio, label: "Radio Field" },
 ] as const;
 
-export default function FormAddFieldDialog({ onAddField }: FormAddFieldDialogProps) {
-    const [open, setOpen] = React.useState(false);
+export default function FormAddFieldDialog({ onAddField, children }: FormAddFieldDialogProps) {
+  const [open, setOpen] = React.useState(false);
 
-    const handleAddField = (type: FormFieldType) => {
-      onAddField(type);
-      setOpen(false);
-    };
+  const handleAddField = (type: FormFieldType) => {
+    onAddField(type);
+    setOpen(false);
+  };
 
-    return (
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus size={16} className="mr-2" />
-              Add Field
-            </Button>
-          </DialogTrigger>
-          <DialogContent aria-describedby={undefined}>
-            <DialogHeader>
-              <DialogTitle>Add New Field</DialogTitle>
-            </DialogHeader>
-            <div className="grid grid-cols-2 gap-4 py-4">
-              {fieldTypes.map((field) => (
-                <Button
-                  key={field.type}
-                  variant="outline"
-                  onClick={() => handleAddField(field.type)}
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      {children ? (
+        <DialogTrigger asChild>
+          {children}
+        </DialogTrigger>
+      ) : (
+        <DialogTrigger asChild>
+          <Button
+                    type="button"
+                    variant={"outline"}
+                    size={"sm"}
+                    className="font-normal text-xs"
                 >
-                  {field.label}
+                    <Plus size={16} /> Add Field
                 </Button>
-              ))}
-            </div>
-          </DialogContent>
-        </Dialog>
-      );
-    }
+        </DialogTrigger>
+      )}
+      <DialogContent aria-describedby={undefined}>
+        <DialogHeader>
+          <DialogTitle>Add New Field</DialogTitle>
+        </DialogHeader>
+        <div className="grid grid-cols-2 gap-4 py-4">
+          {fieldTypes.map((field) => (
+            <Button
+              key={field.type}
+              variant="outline"
+              onClick={() => handleAddField(field.type)}
+            >
+              {field.label}
+            </Button>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

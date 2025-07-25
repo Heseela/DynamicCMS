@@ -82,7 +82,7 @@ const FormForm = ({ formValues, slug, formTitle }: FormFormProps) => {
             />
           </div>
 
-          <div className="flex justify-end gap-4">
+          <div className="flex justify-end gap-4 mt-4">
             <SubmitButton
               isLoading={isPending}
               title={slug ? "Update" : "Save"}

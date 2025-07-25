@@ -4,6 +4,8 @@ import FileField from "./file-field"
 import SelectField from "./select-field"
 import RelationField from "./relation-field"
 import { FormFieldType } from "../../../../Models/form.model"
+import RadioField from "./radio-field"
+import CheckboxField from "./checkbox-field"
 
 export type FormFieldComponentProps = {
     idx: number,
@@ -18,4 +20,6 @@ export const fields: { [key in FormFieldType]: FC<FormFieldComponentProps> } = {
     [FormFieldType.File]: FileField,
     [FormFieldType.Select]: SelectField,
     [FormFieldType.Relation]: RelationField,
+    [FormFieldType.Checkbox]: CheckboxField,
+    [FormFieldType.Radio]: RadioField,
 };

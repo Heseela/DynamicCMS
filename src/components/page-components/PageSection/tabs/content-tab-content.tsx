@@ -21,6 +21,7 @@ import BlockField from "./block-field";
 import { Textarea } from "../../../ui/textarea";
 import { Input } from "../../../ui/input";
 import SelectField from "../../../form-component/select-form-field";
+import CustomAlertDialogConfirmation from "../../../../Global/custom-alter";
 
 const sectionDefaultValue = {
     headline: "",
@@ -89,9 +90,18 @@ export default function ContentTabContent() {
                                                                         </DropdownMenuItem>
                                                                         <DropdownMenuItem className="gap-1" onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
                                                                         </DropdownMenuItem>
-                                                                        <DropdownMenuItem className="gap-1" onClick={() => remove(idx)}>
-                                                                            <X /> Remove
-                                                                        </DropdownMenuItem>
+                                                                        {/* <DropdownMenuItem className="gap-1" onClick={() => remove(idx)}>
+                                                                            <X  className=" text-red-600"/> Remove
+                                                                        </DropdownMenuItem> */}
+                                                                        <CustomAlertDialogConfirmation
+                                                                            trigger={
+                                                                                <DropdownMenuItem className="gap-1 text-red-600" onSelect={(e) => e.preventDefault()}>
+                                                                                    <X size={16} /> Remove
+                                                                                </DropdownMenuItem>
+                                                                            }
+                                                                            description="Are you sure you want to delete this field?"
+                                                                            onConfirm={() => remove(idx)}
+                                                                        />
                                                                     </DropdownMenuContent>
                                                                 </DropdownMenu>
                                                             </section>
@@ -134,7 +144,7 @@ export default function ContentTabContent() {
 
                                                             <BlockField sectionIdx={idx} />
 
-                                                            {field.value.blocks && field.value.blocks[0]?.items?.length>0 && (
+                                                            {field.value.blocks && field.value.blocks[0]?.items?.length > 0 && (
                                                                 <SelectField
                                                                     formField={{
                                                                         name: `sections.${idx}.blocks.0.direction`,
