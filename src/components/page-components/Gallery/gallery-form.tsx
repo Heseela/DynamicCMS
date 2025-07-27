@@ -84,10 +84,13 @@ const GalleryCategoryPopupForm = ({
               }}
             />
 
-            <SubmitButton
+           <div className="flex justify-end">
+           <SubmitButton
               isLoading={isPending}
               title={id ? "Update" : "Save"}
+              showBackBtn = {false}
             />
+           </div>
           </form>
         </FormProvider>
       </DialogContent>

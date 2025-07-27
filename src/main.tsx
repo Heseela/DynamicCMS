@@ -5,12 +5,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from './Layout/layout';
 import Pages from './front-pages/pages';
-// import EditPage from './components/page-components/Pages/edit-page';
-// import PagesList from './components/page-components/Pages/page-list';
 import FaqList from './components/page-components/FAQ/faq-list';
 import FaqForm from './components/page-components/FAQ/faq-form';
 import EditFaq from './components/page-components/FAQ/edit-faq';
-// import PageDetail from './components/page-components/PageDetail/page-detail';
 import CourseList from './components/page-components/Courses/courses-list';
 import CourseForm from './components/page-components/Courses/courses-form';
 import EditCourse from './components/page-components/Courses/edit-courses';
@@ -23,17 +20,16 @@ import JobList from './components/page-components/Jobs/job-list';
 import JobForm from './components/page-components/Jobs/job-form';
 import EditJob from './components/page-components/Jobs/edit-job';
 import SettingView from './components/page-components/GeneralSetting/setting-view';
-import GalleryCategoryList from './components/page-components/GalleryCategories/gallery-list';
-import EditGalleryCategory from './components/page-components/GalleryCategories/edit-gallery';
 import FormForm from './components/page-components/Form/form-form';
 import FormList from './components/page-components/Form/form-list';
 import EditForm from './components/page-components/Form/edit-form';
 import InfoView from './components/page-components/CompanyInformation/info-view';
 import HeaderView from './components/page-components/Header/header-view';
-import GalleryDetailPage from './components/page-components/GalleryCategories/gallery-detail-page';
 import FooterView from './components/page-components/Footer/footer-view';
 import PagesList from './components/page-components/PageSection/pages-list';
 import PageFormWrapper from './front-pages/page-form-wrapper';
+import GalleryCategoryList from './components/page-components/Gallery/gallery-list';
+import SingleGalleryPage from './components/page-components/Gallery/SinglePage/single-gallery-page';
 
 const queryClient = new QueryClient();
 
@@ -51,8 +47,6 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/" element={<Layout />}>
             <Route index element={<Pages />} />
             <Route path="pages" element={<PagesList />} />
-            {/* <Route path="pages/:id/edit" element={<EditPage />} /> */}
-            {/* <Route path="pages/:slug" element={<PageDetail />} /> */}
             <Route path="pages/:slug" element={<PageFormWrapper />} />
 
             <Route path="faqs" element={<FaqList />} />
@@ -83,10 +77,10 @@ createRoot(document.getElementById('root')!).render(
             <Route path="jobs/:id/edit" element={<EditJob />} />
 
             <Route path="gallery" element={<GalleryCategoryList />} />
-            {/* <Route path="gallery/:id" element={<GalleryCategoryDetails/>} /> */}
+            <Route path="gallery/:id" element={<SingleGalleryPage/>} />
             {/* <Route path="gallery" element={<GalleryImageList />} /> */}
-            <Route path="gallery/:id" element={<GalleryDetailPage />} />
-            <Route path="gallery/:id/edit" element={<EditGalleryCategory />} />
+            {/* <Route path="gallery/:id" element={<GalleryDetailPage />} /> */}
+            {/* <Route path="gallery/:id/edit" element={<EditGalleryCategory />} /> */}
 
             <Route path="header" element={<HeaderView />} />
             <Route path="footer" element={<FooterView />} />

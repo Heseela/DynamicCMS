@@ -8,7 +8,6 @@ import { useState } from "react";
 import type { TAsyncGalleryCategory } from "../../../Models/gallery.model";
 import GalleryCategoryPopupForm from "./gallery-form";
 import { Link } from "react-router-dom";
-import GalleryImageForm from "./gallery-image-form";
 
 export const GalleryCategoryColumns: ColumnDef<TAsyncGalleryCategory>[] = [
   {
@@ -37,68 +36,18 @@ export const GalleryCategoryColumns: ColumnDef<TAsyncGalleryCategory>[] = [
       </div>
     ),
   },
-  // {
-  //   header: "Actions",
-  //   id: "actions",
-  //   cell: ({ row }) => {
-  //     const id = row.original.id;
-  //     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  //     const { mutate } = useDeleteMutation({
-  //       endPoint: QueryKey.GALLERY_CATEGORIES,
-  //       queryKey: [QueryKey.GALLERY_CATEGORIES],
-  //       id: id,
-  //     });
-
-  //     const handleDelete = () => {
-  //       mutate(undefined, {
-  //         onSuccess: () => {
-  //           toast.success("Category deleted successfully");
-  //         },
-  //         onError: (error) => {
-  //           toast.error(error.message || "Failed to delete category");
-  //         },
-  //       });
-  //     };
-
-  //     return (
-  //       <div className="flex gap-6">
-  //         <button 
-  //           onClick={() => setIsEditModalOpen(true)}
-  //           aria-label="Edit category"
-  //         >
-  //           <Pencil className="text-blue-500" size={16} />
-  //         </button>
-  //         <CustomAlertDialogConfirmation
-  //           trigger={<Trash2 className="text-red-600" size={16} />}
-  //           description="This action cannot be undone. This will permanently delete this category and remove all associated images."
-  //           onConfirm={handleDelete}
-  //         />
-          
-  //         <GalleryCategoryPopupForm
-  //           open={isEditModalOpen}
-  //           onOpenChange={setIsEditModalOpen}
-  //           id={id}
-  //           categoryValues={row.original}
-  //           formTitle="Edit Gallery Category"
-  //         />
-  //       </div>
-  //     );
-  //   },
-  // }
-
   {
     header: "Actions",
     id: "actions",
     cell: ({ row }) => {
       const id = row.original.id;
       const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-      const [isImageModalOpen, setIsImageModalOpen] = useState(false);
       const { mutate } = useDeleteMutation({
         endPoint: QueryKey.GALLERY_CATEGORIES,
         queryKey: [QueryKey.GALLERY_CATEGORIES],
         id: id,
       });
-  
+
       const handleDelete = () => {
         mutate(undefined, {
           onSuccess: () => {
@@ -109,34 +58,17 @@ export const GalleryCategoryColumns: ColumnDef<TAsyncGalleryCategory>[] = [
           },
         });
       };
-  
+
       return (
         <div className="flex gap-6">
           <button 
-            onClick={() => setIsImageModalOpen(true)}
-            aria-label="Manage images"
-            className="flex items-center gap-1"
-          >
-            <ImageIcon className="text-green-600" size={16} />
-            <span className="text-sm">Images</span>
-          </button>
-          
-          <button 
             onClick={() => setIsEditModalOpen(true)}
             aria-label="Edit category"
-            className="flex items-center gap-1"
           >
             <Pencil className="text-blue-500" size={16} />
-            <span className="text-sm">Edit</span>
           </button>
-          
           <CustomAlertDialogConfirmation
-            trigger={
-              <div className="flex items-center gap-1 cursor-pointer">
-                <Trash2 className="text-red-600" size={16} />
-                <span className="text-sm">Delete</span>
-              </div>
-            }
+            trigger={<Trash2 className="text-red-600" size={16} />}
             description="This action cannot be undone. This will permanently delete this category and remove all associated images."
             onConfirm={handleDelete}
           />
@@ -148,14 +80,10 @@ export const GalleryCategoryColumns: ColumnDef<TAsyncGalleryCategory>[] = [
             categoryValues={row.original}
             formTitle="Edit Gallery Category"
           />
-  
-          <GalleryImageForm
-            open={isImageModalOpen}
-            onOpenChange={setIsImageModalOpen}
-            categoryId={id}
-          />
         </div>
       );
     },
   }
+
+
 ];

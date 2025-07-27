@@ -1,38 +1,35 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
-import { useDeleteMutation } from "../../../Global/custom-muation";
-import { QueryKey } from "../../../Types/query.types";
-import CustomAlertDialogConfirmation from "../../../Global/custom-alter";
-import type { GalleryImage } from "../../../Models/gallery.model";
-import { Image } from "antd";
+import type { GalleryImage } from "../../../../Models/gallery.model";
+import { useDeleteMutation } from "../../../../Global/custom-muation";
+import { QueryKey } from "../../../../Types/query.types";
+import CustomAlertDialogConfirmation from "../../../../Global/custom-alter";
 
-export const GalleryImageColumns: ColumnDef<GalleryImage>[] = [
-  {
-    header: "S.N",
-    cell: ({ row }) => <p className="text-14 font-medium">{row.index + 1}</p>,
-  },
+export const GalleryImageColumns = ({
+  refetchImages
+}: {
+  categoryId?: string;
+  refetchImages: () => void;
+}): ColumnDef<GalleryImage>[] => [
   {
     header: "Image",
-    accessorKey: "url",
     cell: ({ row }) => (
-      <div className="w-20 h-20">
-        <Image
+      <div className="w-24 h-24">
+        <img
           src={row.original.url}
-          alt="Gallery image"
-          className="object-cover rounded-md"
-          width={80}
-          height={80}
+          alt={`Gallery image ${row.original.id}`}
+          className="w-full h-full object-cover rounded-md"
         />
       </div>
     ),
   },
   {
-    header: "Uploaded",
+    header: "Uploaded At",
     accessorKey: "createdAt",
     cell: ({ row }) => (
-      <p className="text-14">
-        {new Date(row.original.createdAt || "").toLocaleDateString()}
+      <p className="text-sm text-gray-500">
+        {new Date(row.original.createdAt || '').toLocaleDateString()}
       </p>
     ),
   },
@@ -50,6 +47,7 @@ export const GalleryImageColumns: ColumnDef<GalleryImage>[] = [
         mutate(undefined, {
           onSuccess: () => {
             toast.success("Image deleted successfully");
+            refetchImages();
           },
           onError: (error) => {
             toast.error(error.message || "Failed to delete image");
@@ -59,11 +57,11 @@ export const GalleryImageColumns: ColumnDef<GalleryImage>[] = [
 
       return (
         <CustomAlertDialogConfirmation
-          trigger={<Trash2 className="text-red-600 cursor-pointer" size={16} />}
+          trigger={<Trash2 className="text-red-600 cursor-pointer" size={18} />}
           description="This action cannot be undone. This will permanently delete this image."
           onConfirm={handleDelete}
         />
       );
     },
-  }
+  },
 ];

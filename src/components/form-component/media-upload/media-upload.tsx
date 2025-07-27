@@ -133,7 +133,7 @@ import { useMutation } from "@tanstack/react-query";
 import { QueryKey } from "../../../Types/query.types";
 import type { TMediaSchema } from "../../../Models/media.model";
 import { Button } from "../../ui/button";
-import { Upload } from "lucide-react";
+import { Upload, Loader2 } from "lucide-react"; // Added Loader2 for spinner
 
 interface ImageResponse {
   message: string;
@@ -176,7 +176,7 @@ export function MediaField({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const inputId = `media-upload-${Math.random().toString(36).substring(2, 9)}`;
 
-  const { mutateAsync: uploadImage } = useMutation<ImageResponse, ApiError, FormData>({
+  const { mutateAsync: uploadImage, isPending: isUploading } = useMutation<ImageResponse, ApiError, FormData>({
     mutationFn: async (formData: FormData) => {
       const response = await axios.post<ImageResponse>(
         `${import.meta.env.VITE_URL}${QueryKey.IMAGES}`,
@@ -201,13 +201,11 @@ export function MediaField({
 
         if (!files || files.length === 0) return;
 
-        // Check max count
         if (multiple && currentCount + files.length > maxCount) {
           setErrorMessage(`You can upload maximum ${maxCount} images`);
           return;
         }
 
-        // Check file sizes and types
         const invalidFiles = Array.from(files).filter(file => {
           if (file.size > maxSize) {
             return true;
@@ -249,13 +247,14 @@ export function MediaField({
           "Failed to upload image. Please try again."
         );
       } finally {
-        // Reset input value to allow uploading same file again
         if (e.target) {
           e.target.value = "";
         }
       }
     });
   };
+
+  const isLoading = isPending || isUploading;
 
   return (
     <div className="space-y-2">
@@ -265,14 +264,18 @@ export function MediaField({
           variant="outline"
           size="sm"
           className="relative"
-          disabled={currentCount >= maxCount}
+          disabled={currentCount >= maxCount || isLoading}
         >
           <label
             htmlFor={inputId}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <Upload className="h-4 w-4" />
-            <span>Upload</span>
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Upload className="h-4 w-4" />
+            )}
+            <span>{isLoading ? "Uploading..." : "Upload"}</span>
           </label>
           <input
             id={inputId}
@@ -281,7 +284,7 @@ export function MediaField({
             multiple={multiple}
             onChange={onUpload}
             className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-            disabled={currentCount >= maxCount}
+            disabled={currentCount >= maxCount || isLoading}
           />
         </Button>
         {multiple && (

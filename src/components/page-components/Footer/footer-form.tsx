@@ -132,6 +132,7 @@ const FooterForm = ({ footerValues, footerId }: FooterFormProps) => {
                                                         type="button"
                                                         size="icon"
                                                         className="border"
+                                                        variant="destructive"
                                                         onClick={() => removeNavLink(index)}
                                                         disabled={navLinkFields.length <= 1}
                                                     >
@@ -227,6 +228,7 @@ const SubLinksFieldArray = ({ nestIndex, control }: { nestIndex: number; control
                                     type="button"
                                     size="icon"
                                     className="border"
+                                    variant="destructive"
                                     onClick={() => remove(subIndex)}
                                 >
                                     <Trash2 className="h-4 w-4 text-red-500" />

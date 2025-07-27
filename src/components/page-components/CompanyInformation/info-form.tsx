@@ -126,6 +126,7 @@ const CompanyForm = ({ companyValues }: CompanyFormProps) => {
                       <Button
                         type="button"
                         size="icon"
+                        variant="destructive"
                         onClick={() => removePhone(index)}
                         className="text-red-500"
                         disabled={phoneFields.length <= 1}
@@ -164,6 +165,7 @@ const CompanyForm = ({ companyValues }: CompanyFormProps) => {
                       <Button
                         type="button"
                         size="icon"
+                        variant="destructive"
                         onClick={() => removeEmail(index)}
                         className="text-red-500"
                         disabled={emailFields.length <= 1}
@@ -220,6 +222,7 @@ const CompanyForm = ({ companyValues }: CompanyFormProps) => {
                       <Button
                         type="button"
                         size="icon"
+                        variant="destructive"
                         onClick={() => removeSocial(index)}
                         className="text-red-500"
                         disabled={socialFields.length <= 1}
