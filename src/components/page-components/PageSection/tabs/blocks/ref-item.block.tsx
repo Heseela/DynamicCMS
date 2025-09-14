@@ -12,10 +12,10 @@ import { useFormContext } from "react-hook-form";
 export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
 
-    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
+    const blockName = `sections.${sectionIdx}.blocks.0.items.${blockIdx}` as const;
 
     const selected = form.watch(`${blockName}.selected`);
-    
+
     const NUMBER_REGEX_STRING = "^[0-9]*$";
 
 
@@ -30,7 +30,7 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
                         <Select
                             onValueChange={val => {
                                 field.onChange(val);
-                                form.setValue(`${blockName}.selected`, []); // reset selected on ref change
+                                form.setValue(`${blockName}.selected`, []);
                             }}
                             defaultValue={field.value}
                             required
@@ -40,13 +40,18 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
                                     <SelectValue placeholder="Select an option" />
                                 </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
-                                {
-                                    Object.entries(ERefRelation).map(([key, value]) => (
-                                        <SelectItem key={key} value={value}>{key}</SelectItem>
-                                    ))
-                                }
+                            <SelectContent className="bg-white">
+                                {Object.entries(ERefRelation).map(([key, value]) => (
+                                    <SelectItem
+                                        key={key}
+                                        value={value}
+                                        className="bg-white text-black hover:bg-gray-100"
+                                    >
+                                        {key}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
+
                         </Select>
                         <FormMessage />
                     </FormItem>
@@ -103,10 +108,16 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
                                                 <SelectValue placeholder="Select an option" />
                                             </SelectTrigger>
                                         </FormControl>
-                                        <SelectContent>
+                                        <SelectContent className='bg-white'>
                                             {
                                                 Object.entries(EOrder).map(([key, value]) => (
-                                                    <SelectItem key={key} value={value}>{key}</SelectItem>
+                                                    <SelectItem
+                                                    key={key}
+                                                    value={value}
+                                                    className="bg-white text-black hover:bg-gray-100"
+                                                  >
+                                                    {key}
+                                                  </SelectItem>
                                                 ))
                                             }
                                         </SelectContent>

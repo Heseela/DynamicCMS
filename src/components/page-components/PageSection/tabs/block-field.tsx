@@ -25,7 +25,7 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
 
     const { fields, append, remove, insert, swap } = useFieldArray({
         control: form.control,
-        name: `sections.${sectionIdx}.blocks.items`,
+        name: `sections.${sectionIdx}.blocks.0.items`,
     });
 
     return (
@@ -38,7 +38,7 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                             <FormField
                                 key={f.id}
                                 control={form.control}
-                                name={`sections.${sectionIdx}.blocks.items.${idx}`}
+                                name={`sections.${sectionIdx}.blocks.0.items.${idx}`}
                                 render={({ field }) => {
                                     const blockType = field.value.type;
                                     const BlockComponent = blocks[blockType];

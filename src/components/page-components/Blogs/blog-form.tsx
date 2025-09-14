@@ -93,22 +93,18 @@ const BlogForm = ({ blogValues, slug, formTitle }: BlogFormProps) => {
                 formField={{
                   name: "coverImageId",
                   label: "Cover Image",
-                  type: "image",
                   accept: "image/*",
                   required: true,
                 }}
-                imageURLs={blogValues?.coverImage?.url}
               />
 
               <ImageUploadField
                 formField={{
                   name: "featuredImageId",
                   label: "Featured Image",
-                  type: "image",
                   accept: "image/*",
                   required: true,
                 }}
-                imageURLs={blogValues?.featuredImage?.url}
               />
               {/* <section className="w-full max-w-6xl overflow-x-hidden">
 

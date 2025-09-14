@@ -2,7 +2,6 @@ import { useFormContext } from "react-hook-form";
 import type { TPageDto } from "../../../../Models/page.model";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../ui/form";
 import { Input } from "../../../ui/input";
-import { Textarea } from "../../../ui/textarea";
 import InputField from "../../../form-component/input-form";
 
 export default function SeoTabContent() {

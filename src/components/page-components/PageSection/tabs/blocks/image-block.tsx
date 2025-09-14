@@ -72,7 +72,7 @@ type MediaItem = {
 export default function ImageBlock({ blockIdx, sectionIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
 
-    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
+    const blockName = `sections.${sectionIdx}.blocks.0.items.${blockIdx}` as const;
 
     return (
         <FormField

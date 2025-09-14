@@ -132,7 +132,7 @@ export const PageSectionSchema = z
             .trim()
             .max(300, { message: "Subheadline must be between 10 and 300 characters" })
             .optional(),
-        blocks: PageBlocksSchema.optional(),
+            blocks: z.array(PageBlocksSchema).optional(),
     })
     .strict();
 

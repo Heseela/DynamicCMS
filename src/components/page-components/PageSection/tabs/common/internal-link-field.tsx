@@ -53,9 +53,9 @@ export function InternalLinkField({
                             <CommandGroup>
                                 <CommandList>
                                     {data.map((group) => {
-                                        return !!group.options?.data?.length && (
+                                        return !!group.options?.length && (
                                             <CommandGroup className='capitalize' heading={group.label} key={group.label}>
-                                                {group.options?.data.map((option) => {
+                                                {group.options?.map((option) => {
                                                     return (
                                                         <CommandItem
                                                             key={option.value}

@@ -37,14 +37,14 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                             <DropdownMenuTrigger className="p-2">
                                 <MoreHorizontal size={16} />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent side="top">
+                            <DropdownMenuContent side="top" className="bg-white">
                                 {
                                     idx !== 0 && <DropdownMenuItem><ChevronUp /> Move Up</DropdownMenuItem>
                                 }
-                                <DropdownMenuItem><ChevronDown /> Move Down</DropdownMenuItem>
-                                <DropdownMenuItem><Plus /> Add Below</DropdownMenuItem>
-                                <DropdownMenuItem><Copy /> Duplicate</DropdownMenuItem>
-                                <DropdownMenuItem
+                                <DropdownMenuItem className="gap-1"><ChevronDown /> Move Down</DropdownMenuItem>
+                                <DropdownMenuItem className="gap-1"><Plus /> Add Below</DropdownMenuItem>
+                                <DropdownMenuItem className="gap-1"><Copy /> Duplicate</DropdownMenuItem>
+                                <DropdownMenuItem className="gap-1"
                                     onClick={onRemove}
                                 >
                                     <X /> Remove

@@ -63,7 +63,7 @@ export const HeroSectionDtoSchema = z.object({
         .trim()
         .max(200, { message: "Subheadline must be between 10 and 200 characters" }),
 
-    image: mediaSchema.nullish(),
+    image: mediaSchema.nullable(),
 
     cta: z
         .array(CTADtoSchema)
@@ -77,10 +77,10 @@ export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema>;
 export const heroSectionDtoDefaultValues: THeroSectionDto = {
     headline: "Untitled",
     subheadline: "",
-    image: undefined,
+    image: null,
     cta: [],
     layout: {
         type: EHeroLayoutTypes.Jumbotron,
-        alignment: EAlignment.Center
+        alignment: EAlignment.Left
     }
 }

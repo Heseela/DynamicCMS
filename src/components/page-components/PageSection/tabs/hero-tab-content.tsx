@@ -83,7 +83,7 @@ export default function HeroTabContent() {
                                                                                 insert(idx + 1, {
                                                                                     headline: "Untitled",
                                                                                     subheadline: "",
-                                                                                    image: undefined,
+                                                                                    image: null,
                                                                                     cta: [],
                                                                                     layout
                                                                                 });
@@ -175,22 +175,15 @@ export default function HeroTabContent() {
                                                                         // </FormItem>
 
 
-                                                                        <FormField
-                                                                            control={form.control}
-                                                                            name={`heroSections.${idx}.image`}
-                                                                            render={({ field }) => (
                                                                                 <ImageUploadField
                                                                                     formField={{
-                                                                                        name: field.name,
+                                                                                        name: `heroSections.${idx}.image`,
                                                                                         label: "Image",
-                                                                                        type: "image",
                                                                                         accept: "image/*",
-                                                                                        // required: true,
+                                                                                        required: true,
                                                                                         multiple: false
                                                                                     }}
                                                                                 />
-                                                                            )}
-                                                                        />
                                                                     )
                                                                 }}
                                                             />
@@ -232,8 +225,6 @@ export default function HeroTabContent() {
                         cta: [],
                         layout: {
                             ...layout,
-                            alignment: layout.type === EHeroLayoutTypes.Jumbotron ? EAlignment.Left : undefined,
-                            imagePosition: layout.type !== EHeroLayoutTypes.Jumbotron ? EAlignmentExcludeCenter.Left : undefined
                         }
                     });
                 }}
